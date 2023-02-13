@@ -1,3 +1,42 @@
 body {
     background-color: beige;
 }
+
+body {
+    background-color: white;
+}
+
+nav {
+    background-color: lightgrey;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#pageWrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    border: 1px solid black;
+    height: 180px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.moveBtn {
+    background-color: gray;
+    border: 1px solid black;
+    margin: 6px;
+}
