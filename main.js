@@ -1,4 +1,5 @@
-<<<<<<<<< Temporary merge branch 1
+let buyListInput = document.querySelector("#buy-list-input");
+let buyList = document.querySelector("#buy-list");
 /*
 This function takes in the a list and an item and deletes the selected item.
 Use this in the context of the delete button appended to each list item.
@@ -10,10 +11,7 @@ async function deleteFunction(currentList, item) {
   let { list } = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
   return list;
 }
-let buyListInput = document.querySelector(".buy-list-input");
-=========
-let buyListInput = document.querySelector("#buy-list-input");
-let buyList = document.querySelector("#buy-list");
+
 async function apiPost(str){
     const res = await fetch(
         `https://nackademin-item-tracker.herokuapp.com/lists/63ea106e843a53f2e4b457f3/items`,
@@ -36,4 +34,4 @@ buyListInput.addEventListener("submit", (event)=>{
     let input = document.querySelector("#buy-list-input> input").value;
     apiPost(input);
 });
->>>>>>>>> Temporary merge branch 2
+
