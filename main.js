@@ -1,4 +1,4 @@
-let buyListInput = document.querySelector("#buy-list-input");
+let buyListInput = document.querySelector(".buy-list-input");
 let buyList = document.querySelector("#buy-list");
 
 /*
@@ -31,7 +31,7 @@ async function apiPost(str){
         }
       );
       const { list } = await res.json();
-      console.log(list)
+      drawItems(list.itemList, buyList);
 };
 
 
@@ -39,18 +39,22 @@ async function apiPost(str){
 // Submit eventListener on buy item form
 buyListInput.addEventListener("submit", (event)=>{
     event.preventDefault();
-    let input = document.querySelector("#buy-list-input> input").value;
+    let input = document.querySelector("#shoppingField").value;
     apiPost(input);
 });
 
-
+function createItem(item, list){
+    const li = document.createElement("li");
+    li.innerHTML = `<h4>${item.title}</h4>`;
+    list.appendChild(li);
+}
 
 // Takes all items and prits it to desired list
-function printToList(items, list) {
+function drawItems(items, list) {
   list.innerHTML = ''
 
-  items.forEach(item => { 
-    createItem(item)
+  let content = items.forEach(item => { 
+    createItem(item, list)
   })
 }
 
