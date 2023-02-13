@@ -54,9 +54,9 @@ async function apiGet(listID) {
   const data = await res.json();
   return data;
 }
-let buyListID = apiGet("63ea106e843a53f2e4b457f3");
-console.log(buyListID);
-let inventoryListId = apiGet("63ea107d843a53f2e4b457f4");
-console.log(inventoryListId);
+let buyListData = apiGet("63ea106e843a53f2e4b457f3");
+console.log(buyListData);
+let inventoryListData = apiGet("63ea107d843a53f2e4b457f4");
+console.log(inventoryListData);
 
 //-------------------------------------------------------
