@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
+    <script src="main.js" defer></script>
     <title>Document</title>
 </head>
 
@@ -15,18 +15,42 @@
     <header>
         <nav>
             <i class="fa-solid fa-gear"></i>
-            <img src="img/carrot_svg.svg" alt="CarrotLogo" width="50" height="50">
+            <img src="img/carrot_svg.svg" alt="CarrotLogo" width="70" height="70">
             <i class="fa-solid fa-bars"></i>
         </nav>
     </header>
-    <form class="buy-list-input">
-        <input type="text" placeholder="Vara">
-        <button>+</button>
-    </form>
-    <div>
-        <ul class="buy-list"></ul>
-        <button>+Flytta över</button>
+
+    <div id="pageWrapper">
+        <section id="shoppingContainer">
+            <h3>Inköpslista</h2>
+                <form class="buy-list-input">
+                    <input type="text" id="shoppingField" placeholder="Mjölk" required>
+                    <button type="submit"><i class="fa-solid fa-plus"></i></button>
+                </form>
+                <div id="shoppingList" class="container">
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
+                <button class="moveBtn" id="shoppingMove">Flytta över</button>
+        </section>
+
+
+        <section id="homeContainer">
+            <h3>Har hemma</h2>
+                <form class="home-list-input">
+                    <input type="text" id="homeField" placeholder="Mjölk" required>
+                    <button type="submit"><i class="fa-solid fa-plus"></i></button>
+                </form>
+                <div id="homeList" class="container">
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
+                <button class="moveBtn" id="homeMove">Flytta över</button>
+        </section>
     </div>
+    <script src="main.js"></script>
 </body>
 
 </html>
