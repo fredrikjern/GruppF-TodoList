@@ -1,0 +1,1 @@
+let buyListInput = document.querySelector(".buy-list-input");
