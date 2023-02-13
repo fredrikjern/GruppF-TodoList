@@ -9,3 +9,4 @@ async function deleteFunction(currentList, item) {
   let { list } = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
   return list;
 }
+let buyListInput = document.querySelector(".buy-list-input");
