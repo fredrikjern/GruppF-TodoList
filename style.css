@@ -26,14 +26,4 @@ nav {
     border: 1px solid black;
     height: 180px;
     width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-#moveBtn {
-    background-color: gray;
-    border: 1px solid black;
-    margin: 6px;
-
 }
