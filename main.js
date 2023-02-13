@@ -2,6 +2,9 @@
 let buyListInput = document.querySelector("#buy-list-input");
 let buyList = document.querySelector("#buy-list");
 
+
+
+// Api post funtion that adds items into buy list
 async function apiPost(str){
     const res = await fetch(
         `https://nackademin-item-tracker.herokuapp.com/lists/GruppF-UserName-Buy/items`,
@@ -19,11 +22,27 @@ async function apiPost(str){
       //const { buyList } = await res.json();
 };
 
+
+
+// Submit eventListener on buy item form
 buyListInput.addEventListener("submit", (event)=>{
     event.preventDefault();
     let input = document.querySelector("#buy-list-input> input").value;
     apiPost(input);
 });
+
+
+
+// Takes all items and prits it to desired list
+function printToList(items, list) {
+  list.innerHTML = ''
+
+  items.forEach(item => { 
+    createItem(item)
+  })
+}
+
+
 
 /*
 This function takes in the a list and an item and deletes the selected item.
@@ -36,4 +55,3 @@ async function deleteFunction(currentList, item) {
   let { list } = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
   return list;
 }
-let buyListInput = document.querySelector(".buy-list-input");
