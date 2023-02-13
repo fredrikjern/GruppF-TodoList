@@ -1,30 +1,12 @@
 let buyListInput = document.querySelector("#buy-list-input");
 let buyList = document.querySelector("#buy-list");
 
-// Api post funtion that adds items into buy list
-async function apiPost(str) {
-  const res = await fetch(
-    `https://nackademin-item-tracker.herokuapp.com/lists/GruppF-UserName-Buy/items`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: str,
-      }),
-    }
-  );
-  console.log("Hej");
-  //const { buyList } = await res.json();
-}
-
 // Submit eventListener on buy item form
-buyListInput.addEventListener("submit", (event) => {
-  event.preventDefault();
-  let input = document.querySelector("#buy-list-input> input").value;
-  apiPost(input);
-});
+// buyListInput.addEventListener("submit", (event) => {
+//   event.preventDefault();
+//   let input = document.querySelector("#buy-list-input> input").value;
+//   apiPost(input);
+// });
 
 // Takes all items and prits it to desired list
 function printToList(items, list) {
@@ -47,16 +29,22 @@ async function deleteFunction(currentList, item) {
   return list;
 }
 
-async function apiGet(listID) {
+async function apiGet(id) {
   const res = await fetch(
-    `https://nackademin-item-tracker.herokuapp.com/list/:${listID}`
+    `https://nackademin-item-tracker.herokuapp.com/lists/${id}`
   );
   const data = await res.json();
+  console.log(data);
+  console.log("hämtat datat");
   return data;
 }
-let buyListData = apiGet("63ea106e843a53f2e4b457f3");
+
+let buyID = "63ea106e843a53f2e4b457f3";
+let inventoryID = "63ea107d843a53f2e4b457f4";
+let buyListData = apiGet(buyID);
 console.log(buyListData);
-let inventoryListData = apiGet("63ea107d843a53f2e4b457f4");
-console.log(inventoryListData);
+// console.log(buyListData);
+//let inventoryListData = apiGet(inventoryID);
+//console.log(inventoryListData);
 
 //-------------------------------------------------------
