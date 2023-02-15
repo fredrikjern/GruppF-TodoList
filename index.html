@@ -23,14 +23,12 @@
     <div id="pageWrapper">
         <section id="shoppingContainer">
             <h3>Inköpslista</h2>
-                <form class="buy-list-input">
+                <form id="buy-list-input">
                     <input type="text" id="shoppingField" placeholder="Mjölk" required>
                     <button type="submit"><i class="fa-solid fa-plus"></i></button>
                 </form>
                 <div id="shoppingList" class="container">
-                    <ul>
-                        <li></li>
-                    </ul>
+                    <ul id="buy-list"></ul>
                 </div>
                 <button class="moveBtn" id="shoppingMove">Flytta över</button>
         </section>
@@ -50,7 +48,6 @@
                 <button class="moveBtn" id="homeMove">Flytta över</button>
         </section>
     </div>
-    <script src="main.js"></script>
 </body>
 
 </html>
