@@ -8,6 +8,8 @@ let currentList = "";
 
 let buyID = "63ea106e843a53f2e4b457f3";
 let inventoryID = "63ea107d843a53f2e4b457f4";
+
+
 // Function that takes buyList or inventoryList and then calls the write function.
 async function apiGet(listName) {
   let listID;
@@ -17,14 +19,15 @@ async function apiGet(listName) {
     listID = inventoryID;
   } else {
     return console.error(
-      "ApiGet function need to know if it is 'buylist' or 'inventoryList'!"
+      "ApiGet function need to know if it is 'buyList' or 'inventoryList'!"
     );
   }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
   );
   const data = await res.json();
-  console.log(data.itemList); //TODO Change this line to a draw function
+  // console.log(data.itemList); //TODO Change this line to a draw function
+  printToList(data, listName)
 }
 
 // Api post funtion that adds items into buy list
@@ -39,11 +42,14 @@ homeField.addEventListener("submit", function (e) {
   apiPost(inventoryID);
 });
 async function apiPost(listID) {
-  let input;
+  let inputMain;
+  let inputDesc;
   if (listID === buyID) {
-    input = document.querySelector("#shoppingField").value;
+    inputMain = document.querySelector("#shoppingField").value;
+    inputDesc = document.querySelector("#shoppingDesc").value;
   } else if (listID === inventoryID) {
-    input = document.querySelector("#homeField").value;
+    inputMain = document.querySelector("#homeField").value;
+    inputDesc = document.querySelector("#homeDesc").value;
   }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}/items`,
@@ -53,7 +59,8 @@ async function apiPost(listID) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: input,
+        title: inputMain,
+        description: inputDesc,
       }),
     }
   );
@@ -72,13 +79,27 @@ const myArr = [
   },
 ];
 // Takes all items and prits it to desired list
-function printToList(items, list) {
+function printToList(items, listName) {
+  if (listName === "buyList") {
+    list = "buy-list"
+  } else if (listName === "inventoryList") {
+    list = "inventory-list"
+  }
   list.innerHTML = "";
 
-  items.forEach((item) => {
-    createItem(item);
+  // console.log(items.itemList)
+  items.itemList.forEach(item => {
+    createItem(item, list);
   });
 }
+
+function createItem(obj, list) {
+  console.log(obj.title)
+  let liElem = document.createElement("li")
+  liElem.innerHTML = `<p>${obj.title}</p>`
+  document.getElementById(list).append(liElem)
+}
+
 
 // This function takes in the a list and an item and deletes the selected item.
 // Use this in the context of the delete button appended to each list item.
@@ -90,9 +111,6 @@ async function deleteFunction(currentList, item) {
   return list;
 }
 
-// Submit eventListener on buy item form
-// buyListInput.addEventListener("submit", (event) => {
-//   event.preventDefault();
-//   let input = document.querySelector("#buy-list-input> input").value;
-//   apiPost(input);
-// });
+
+apiGet("buyList")
+apiGet("inventoryList")
