@@ -1,24 +1,32 @@
 const API_BASE = "https://nackademin-item-tracker.herokuapp.com/"; //Den delen av API:urlen som är samma för alla anrop
-
 const buyList = document.getElementById("buy-list");
-
 let shoppingField = document.querySelector("#shoppingField");
 let homeField = document.querySelector("#homeField");
 let shopButton = document.querySelector("#shopButton");
 let homeButton = document.querySelector("#homeButton");
 let currentList = "";
 
-async function apiGet(listID) {
+
+
+// Function that takes buyList or inventoryList and then calls the write function.
+async function apiGet(listName) {
+  let listID
+  if (listName === "buyList") {
+    listID = "63ea106e843a53f2e4b457f3"
+  } else if (listName === "inventoryList") {
+    listID = "63ea107d843a53f2e4b457f4"
+  } else {
+    return console.error("ApiGet function need to know if it is 'buylist' or 'inventoryList'!")
+  }
   const res = await fetch(
-    `https://nackademin-item-tracker.herokuapp.com/list/:${listID}`
-  );
+    `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
+    );
   const data = await res.json();
-  return data;
+  console.log(data.itemList) //TODO Change this line to a draw function
 }
-// let buyListData = apiGet("63ea106e843a53f2e4b457f3");
-console.log(buyListData);
-// let inventoryListData = apiGet("63ea107d843a53f2e4b457f4");
-console.log(inventoryListData);
+
+
+
 // Api post funtion that adds items into buy list
 // ID till input fältet #shoppingField och #homeField
 // ID till knappen för input fältet #shopButton och #homeButton
@@ -47,6 +55,14 @@ async function apiPost(listID) {
   //const { buyList } = await res.json();
 }
 
+
+
+const myArr = [
+  {
+    itemList: ["sak1", "sak2", "sak3"],
+    _id: "dsgdg32432fdf",
+  }
+]
 // Takes all items and prits it to desired list
 function printToList(items, list) {
   list.innerHTML = "";
@@ -66,24 +82,7 @@ async function deleteFunction(currentList, item) {
   return list;
 }
 
-// Function that takes buyList or inventoryList and then calls the write function.
-async function apiGet(listName) {
-  let listID;
-  if (listName === "buyList") {
-    listID = "63ea106e843a53f2e4b457f3";
-  } else if (listName === "inventoryList") {
-    listID = "63ea107d843a53f2e4b457f4";
-  } else {
-    return console.error(
-      "ApiGet function need to know if it is 'buylist' or 'inventoryList'!"
-    );
-  }
-  const res = await fetch(
-    `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
-  );
-  const data = await res.json();
-  console.log(data.itemList); //TODO Change this line to a draw function
-}
+
 
 // Submit eventListener on buy item form
 // buyListInput.addEventListener("submit", (event) => {
