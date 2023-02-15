@@ -44,6 +44,7 @@ section{
     margin: 16px 0 16px 0;
     width: 250px;
     box-shadow: $shadowBox;
+    border-radius: 8px;
     background-color: $lightBlue;
     form{
         display: flex;
@@ -53,13 +54,23 @@ section{
                 border-radius: 8px;
                 margin: 4px 0 4px 0;
                 width: 200px;
+                background-color: $lighterBlue;
                 color: $darkBlue;
                 font-family: $fontFamily;
-            }
-            input::placeholder{
-                color: $darkBlue;
-                font-family: $fontFamily;
-                font-size: 16px;
+                font-weight: 600;
+                &:focus{
+                    color: $darkBlue;
+                    font-family: $fontFamily; 
+                    font-weight: 600;
+                    &::placeholder{
+                        color: transparent;
+                    }
+                }
+                &::placeholder{
+                    color: $darkBlue;
+                    font-family: $fontFamily;
+                    font-size: 16px;
+                }
             }
         }
         div:nth-of-type(2){
