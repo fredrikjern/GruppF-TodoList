@@ -1,10 +1,5 @@
-$backgroud: #EFF2F1;
-$orange: #F4B942;
-$lightBlue: #6b9bc442;
-$lighterBlue:#6b9bc400;
-$darkBlue: #4059AD;
-$shadowBox: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-$fontFamily: 'Courier New', Courier, monospace;
+@import "./partials/variables";
+@import "./partials/mixins";
 
 body{
     background-color: $backgroud;
@@ -57,8 +52,7 @@ section{
         display: flex;
         div:nth-of-type(1){
             input{
-                border: 2px solid $darkBlue;
-                border-radius: 8px;
+                @include border;
                 margin: 4px 0 4px 0;
                 width: 200px;
                 background-color: $lighterBlue;
@@ -97,8 +91,7 @@ section{
     }
     .container {
         margin: 16px 0 16px 0;
-        border: 2px solid $darkBlue;
-        border-radius: 8px;
+        @include border;
         width: 100%;
         height: 400px;
         overflow-y: scroll;
@@ -133,6 +126,9 @@ section{
         font-family: $fontFamily;
         background-color: $lighterBlue;
         font-weight: 600;
+        i{
+            margin-left: 8px;
+        }
         &:hover{
             font-size: 16px;
         }
@@ -151,6 +147,11 @@ section{
     background-color: palegoldenrod;
     padding: 10px;
     font-size: 25px;
+    h6 {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 16px;
+        margin-top: 10px;
+      }
   }
   
   #hamburgerMenu:hover{
@@ -158,38 +159,30 @@ section{
     color:white;
   }
   
-  a.hamburgerMenuItem:link
-  {
-     color: black;
-     text-decoration: none;
+  a.hamburgerMenuItem{
+    &:link
+    {
+       color: black;
+       text-decoration: none;
+    }
+    &:visited
+    {
+       color: black;
+       text-decoration: none;
+    }
+    &:hover
+    {
+       color: white;
+       transition: 500ms;
+       text-decoration: none;
+    }
+    &:active
+    {
+        color: black;
+        text-decoration: none;
+    }
   }
-  a.hamburgerMenuItem:visited
-  {
-     color: black;
-     text-decoration: none;
-  }
-  a.hamburgerMenuItem:hover
-  {
-     color: white;
-     transition: 500ms;
-     text-decoration: none;
-  }
-  a.hamburgerMenuItem:active
-  {
-     color: black;
-     text-decoration: none;
-  }
-  
-  h6 {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
 
-  #arrow {
-    margin-left: 6px;
-  }
 
 
 // # sourceMappingURL=style.css.map
