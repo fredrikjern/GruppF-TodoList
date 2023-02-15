@@ -10,8 +10,7 @@ let buyID = "63ea106e843a53f2e4b457f3";
 let inventoryID = "63ea107d843a53f2e4b457f4";
 
 // Function that takes buyList or inventoryList and then calls the write function.
-async function apiGet(listID) {
-  if (listID === buyID) {
+
 async function apiGet(listID) {
   if (listID === buyID) {
     listID = buyID;
@@ -23,9 +22,9 @@ async function apiGet(listID) {
   }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
-  )
-  const data = await res.json()
-  printToList(data, listID)
+  );
+  const data = await res.json();
+  printToList(data, listID);
 }
 
 // Api post funtion that adds items into buy list
@@ -78,7 +77,7 @@ function printToList(items, listName) {
   } else if (listName === inventoryID) {
     list = "inventory-list";
   }
-  document.getElementById(list).innerHTML = ""
+  document.getElementById(list).innerHTML = "";
 
   items.itemList.forEach((item) => {
     createItem(item, list, listName);
