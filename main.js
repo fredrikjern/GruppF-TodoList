@@ -9,25 +9,20 @@ let currentList = "";
 let buyID = "63ea106e843a53f2e4b457f3";
 let inventoryID = "63ea107d843a53f2e4b457f4";
 
-
 // Function that takes buyList or inventoryList and then calls the write function.
-async function apiGet(listName) {
-  let listID;
-  if (listName === "buyList") {
+async function apiGet(listID) {
+  if (listID === buyID) {
     listID = buyID;
-  } else if (listName === "inventoryList") {
+  } else if (listID === inventoryID) {
     listID = inventoryID;
   } else {
-    return console.error(
-      "ApiGet function need to know if it is 'buyList' or 'inventoryList'!"
-    );
+    return console.error("ApiGet id error!");
   }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
   );
   const data = await res.json();
-  // console.log(data.itemList); //TODO Change this line to a draw function
-  printToList(data, listName)
+  printToList(data, listID);
 }
 
 // Api post funtion that adds items into buy list
@@ -69,53 +64,47 @@ async function apiPost(listID) {
       }),
     }
   );
-  const { list } = await res.json();
-
-  console.log(list.itemList);
-  // drawItems(list.itemList);
-  console.log("Hej");
-  //const { buyList } = await res.json();
+  const data = await res.json();
+  printToList(data.list, listID);
 }
 
-const myArr = [
-  {
-    itemList: ["sak1", "sak2", "sak3"],
-    _id: "dsgdg32432fdf",
-  },
-];
 // Takes all items and prits it to desired list
 function printToList(items, listName) {
-  if (listName === "buyList") {
-    list = "buy-list"
-  } else if (listName === "inventoryList") {
-    list = "inventory-list"
+  if (listName === buyID) {
+    list = "buy-list";
+  } else if (listName === inventoryID) {
+    list = "inventory-list";
   }
   list.innerHTML = "";
 
-  // console.log(items.itemList)
-  items.itemList.forEach(item => {
-    createItem(item, list);
+  items.itemList.forEach((item) => {
+    createItem(item, list, listName);
   });
 }
 
-function createItem(obj, list) {
-  console.log(obj.title)
-  let liElem = document.createElement("li")
-  liElem.innerHTML = `<p>${obj.title}</p>`
-  document.getElementById(list).append(liElem)
+function createItem(obj, list, listIDs) {
+  let liElem = document.createElement("li");
+  liElem.innerHTML = `<p>${obj.description}, ${obj.title}</p>`;
+
+  let deleteItemBtn = document.createElement("button");
+  deleteItemBtn.classList.add("fa");
+  deleteItemBtn.classList.add("fa-trash");
+  deleteItemBtn.setAttribute("aria-hidden", "true");
+  liElem.append(deleteItemBtn);
+
+  document.getElementById(list).append(liElem);
+
+  let listID = listIDs;
+  deleteItemBtn.addEventListener("click", async function () {
+    const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
+      method: "DELETE",
+    }); // deletar objekt med _id.
+    console.log(listID);
+    let data = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
+    apiGet(listID);
+    // printToList(data.list);
+  });
 }
 
-
-// This function takes in the a list and an item and deletes the selected item.
-// Use this in the context of the delete button appended to each list item.
-async function deleteFunction(currentList, item) {
-  const res = await fetch(`${API_BASE}lists/${currentList}/items/${item._id}`, {
-    method: "DELETE",
-  }); // deletar objekt med _id.
-  let { list } = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
-  return list;
-}
-
-
-apiGet("buyList")
-apiGet("inventoryList")
+apiGet(buyID);
+apiGet(inventoryID);
