@@ -1,39 +1,41 @@
 const API_BASE = "https://nackademin-item-tracker.herokuapp.com/"; //Den delen av API:urlen som är samma för alla anrop
 const buyList = document.getElementById("buy-list");
-let shoppingField = document.querySelector("#shoppingField");
-let homeField = document.querySelector("#homeField");
+let shoppingField = document.querySelector("#buy-list-input");
+let homeField = document.querySelector("#home-list-input");
 let shopButton = document.querySelector("#shopButton");
 let homeButton = document.querySelector("#homeButton");
 let currentList = "";
 
-
-
 // Function that takes buyList or inventoryList and then calls the write function.
 async function apiGet(listName) {
-  let listID
+  let listID;
   if (listName === "buyList") {
-    listID = "63ea106e843a53f2e4b457f3"
+    listID = "63ea106e843a53f2e4b457f3";
   } else if (listName === "inventoryList") {
-    listID = "63ea107d843a53f2e4b457f4"
+    listID = "63ea107d843a53f2e4b457f4";
   } else {
-    return console.error("ApiGet function need to know if it is 'buylist' or 'inventoryList'!")
+    return console.error(
+      "ApiGet function need to know if it is 'buylist' or 'inventoryList'!"
+    );
   }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
-    );
+  );
   const data = await res.json();
-  console.log(data.itemList) //TODO Change this line to a draw function
+  console.log(data.itemList); //TODO Change this line to a draw function
 }
-
-
 
 // Api post funtion that adds items into buy list
 // ID till input fältet #shoppingField och #homeField
 // ID till knappen för input fältet #shopButton och #homeButton
 const shopValue = shoppingField.value;
-shoppingField.addEventListener("sumbit", function (e) {
+shoppingField.addEventListener("submit", function (e) {
   e.preventDefault();
   apiPost("63ea106e843a53f2e4b457f3");
+});
+homeField.addEventListener("submit", function (e) {
+  e.preventDefault();
+  apiPost("63ea107d843a53f2e4b457f4");
 });
 async function apiPost(listID) {
   const res = await fetch(
@@ -44,10 +46,11 @@ async function apiPost(listID) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: shopValue,
+        title: document.querySelector("#shoppingField").value,
       }),
     }
   );
+
   const { list } = await res.json();
   console.log(list.itemList);
   // drawItems(list.itemList);
@@ -55,14 +58,12 @@ async function apiPost(listID) {
   //const { buyList } = await res.json();
 }
 
-
-
 const myArr = [
   {
     itemList: ["sak1", "sak2", "sak3"],
     _id: "dsgdg32432fdf",
-  }
-]
+  },
+];
 // Takes all items and prits it to desired list
 function printToList(items, list) {
   list.innerHTML = "";
@@ -81,8 +82,6 @@ async function deleteFunction(currentList, item) {
   let { list } = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
   return list;
 }
-
-
 
 // Submit eventListener on buy item form
 // buyListInput.addEventListener("submit", (event) => {
