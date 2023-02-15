@@ -1,55 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <nav>
-            <i class="fa-solid fa-gear"></i>
-            <img src="img/carrot_white.svg" alt="CarrotLogo" width="70" height="70">
-            <i class="fa-solid fa-bars"></i>
-        </nav>
+      <nav>
+        <i class="fa-solid fa-gear"></i>
+        <img
+          src="img/carrot_white.svg"
+          alt="CarrotLogo"
+          width="70"
+          height="70"
+        />
+        <i class="fa-solid fa-bars"></i>
+      </nav>
     </header>
 
     <div id="pageWrapper">
-        <section id="shoppingContainer">
-            <h3>Inköpslista</h2>
-                <form id="buy-list-input">
-                    <input type="text" id="shoppingField" placeholder="Vad ska du köpa?" required>
-                    <input type="text" id="shoppingDesc" placeholder="Hur mycket av det ska du köpa?" required>
-                    <button type="submit"><i class="fa-solid fa-plus"></i></button>
-                </form>
-                <div id="shoppingList" class="container">
-                    <ul id="buy-list"></ul>
-                </div>
-                <button class="moveBtn" id="shoppingMove">Flytta över</button>
-        </section>
+      <section id="shoppingContainer">
+        <h2>Inköpslista</h2>
+        <form id="buy-list-input">
+          <input
+            type="text"
+            id="shoppingField"
+            placeholder="Vad ska du köpa?"
+            required
+          />
+          <input
+            type="text"
+            id="shoppingDesc"
+            placeholder="Hur mycket av det ska du köpa?"
+            required
+          />
+          <button type="submit"><i class="fa-solid fa-plus"></i></button>
+        </form>
+        <div id="shoppingList" class="container">
+          <ul id="buy-list"></ul>
+        </div>
+        <button class="moveBtn" id="shoppingMove">Flytta över</button>
+      </section>
 
-
-        <section id="homeContainer">
-            <h3>Har hemma</h2>
-                <form id="home-list-input">
-                    <input type="text" id="homeField" placeholder="Vad har du hemma?" required>
-                    <input type="text" id="homeDesc" placeholder="Hur mycket av det har du hemma?" required>
-                    <button type="submit" id="homeButton"><i class="fa-solid fa-plus"></i></button>
-                </form>
-                <div id="homeList" class="container">
-                    <ul>
-                        <li></li>
-                    </ul>
-                </div>
-                <button class="moveBtn" id="homeMove">Flytta över</button>
-        </section>
+      <section id="homeContainer">
+        <h2>Har hemma</h2>
+        <form id="home-list-input">
+          <input
+            type="text"
+            id="homeField"
+            placeholder="Vad har du hemma?"
+            required
+          />
+          <input
+            type="text"
+            id="homeDesc"
+            placeholder="Hur mycket av det har du hemma?"
+            required
+          />
+          <button type="submit" id="homeButton">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </form>
+        <div id="homeList" class="container">
+          <ul>
+            <li></li>
+          </ul>
+        </div>
+        <button class="moveBtn" id="homeMove">Flytta över</button>
+      </section>
     </div>
-</body>
-
+  </body>
 </html>

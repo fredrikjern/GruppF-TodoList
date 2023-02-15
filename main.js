@@ -48,6 +48,11 @@ async function apiPost(listID) {
     inputMain = document.querySelector("#homeField").value;
     inputDesc = document.querySelector("#homeDesc").value;
   }
+  if (!inputMain.trim().length || !inputDesc.trim().length) {
+    alert("Du måste skriva något i båda fälten.");
+    throw new Error("Input måste innehålla minst en karaktär.");
+  }
+
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}/items`,
     {
@@ -61,8 +66,8 @@ async function apiPost(listID) {
       }),
     }
   );
-
   const { list } = await res.json();
+
   console.log(list.itemList);
   // drawItems(list.itemList);
   console.log("Hej");
