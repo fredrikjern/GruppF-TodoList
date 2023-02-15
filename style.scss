@@ -46,29 +46,34 @@ section{
     box-shadow: $shadowBox;
     background-color: $lightBlue;
     form{
-        input{
-            border: 2px solid $darkBlue;
-            border-radius: 8px;
-            color: $darkBlue;
-            font-family: $fontFamily;
+        display: flex;
+        div:nth-of-type(1){
+            input{
+                border: 2px solid $darkBlue;
+                border-radius: 8px;
+                margin: 4px 0 4px 0;
+                width: 200px;
+                color: $darkBlue;
+                font-family: $fontFamily;
+            }
+            input::placeholder{
+                color: $darkBlue;
+                font-family: $fontFamily;
+                font-size: 16px;
+            }
         }
-        input:hover{
-            font-size: 16px;
-            transition: 200ms;
-        }
-        input::placeholder{
-            color: $darkBlue;
-            font-family: $fontFamily;
-            font-size: 16px;
-        }
-        button{
-            border: none;
-            color: $darkBlue;
-            font-size: 16px;
-            background-color: $lighterBlue;
-            :hover{
-                font-size: 24px;
-                transition: 200ms;
+        div:nth-of-type(2){
+            display: flex;
+            align-items: center;
+            button{
+                border: none;
+                color: $darkBlue;
+                font-size: 16px;
+                background-color: $lighterBlue;
+                :hover{
+                    font-size: 24px;
+                    transition: 200ms;
+                }
             }
         }
     }
