@@ -21,6 +21,13 @@ header nav {
 header nav img {
   height: 48px;
 }
+header nav i {
+  width: 30px;
+}
+header nav i:hover {
+  font-size: 30px;
+  transition: 200ms;
+}
 
 #pageWrapper {
   height: 100%;
@@ -35,7 +42,6 @@ section {
   padding: 48px;
   margin: 16px 0 16px 0;
   width: 250px;
-  height: 550px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 8px;
   background-color: rgba(107, 155, 196, 0.2588235294);
@@ -93,6 +99,32 @@ section .container {
   border: 2px solid #4059AD;
   border-radius: 8px;
   width: 100%;
+  height: 400px;
+  overflow-y: scroll;
+}
+section .container::-webkit-scrollbar {
+  display: none;
+}
+section .container ul {
+  list-style-type: none;
+  padding: 16px;
+  margin: 0;
+}
+section .container ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+section .container ul li button {
+  border: none;
+  background-color: rgba(107, 155, 196, 0);
+}
+section .container ul li button i {
+  color: #4059AD;
+}
+section .container ul li button i:hover {
+  font-size: 24px;
 }
 section .moveBtn {
   border: none;
@@ -103,21 +135,4 @@ section .moveBtn {
 }
 section .moveBtn:hover {
   font-size: 16px;
-}
-
-li {
-  display: flex;
-}
-li button {
-  margin-left: auto;
-  width: 30px;
-  height: 30px;
-}
-
-.fa-gear {
-  font-size: 30px;
-}
-
-.fa-bars {
-  font-size: 30px;
 }/*# sourceMappingURL=style.css.map */
