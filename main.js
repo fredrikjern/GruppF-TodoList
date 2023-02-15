@@ -39,11 +39,14 @@ homeField.addEventListener("submit", function (e) {
   apiPost(inventoryID);
 });
 async function apiPost(listID) {
-  let input;
+  let inputMain;
+  let inputDesc;
   if (listID === buyID) {
-    input = document.querySelector("#shoppingField").value;
+    inputMain = document.querySelector("#shoppingField").value;
+    inputDesc = document.querySelector("#shoppingDesc").value;
   } else if (listID === inventoryID) {
-    input = document.querySelector("#homeField").value;
+    inputMain = document.querySelector("#homeField").value;
+    inputDesc = document.querySelector("#homeDesc").value;
   }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}/items`,
@@ -53,7 +56,8 @@ async function apiPost(listID) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: input,
+        title: inputMain,
+        description: inputDesc,
       }),
     }
   );
