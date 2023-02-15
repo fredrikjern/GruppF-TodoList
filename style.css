@@ -1,27 +1,25 @@
 body {
-  background-color: beige;
+  background-color: #EFF2F1;
   margin: 0;
-}
-
-body {
-  background-color: white;
+  color: #4059AD;
+  font-family: "Courier New", Courier, monospace;
 }
 
 header {
   width: 100%;
-  height: 8%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-nav {
-  background-color: lightgrey;
-  padding: 6px;
-}
-
-nav {
+header nav {
+  background-color: #F4B942;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 8px 24px 8px 24px;
+  color: #EFF2F1;
+}
+header nav img {
+  height: 48px;
 }
 
 #pageWrapper {
@@ -33,16 +31,58 @@ nav {
   flex-direction: column;
 }
 
-.container {
-  border: 1px solid black;
-  height: 180px;
+section {
+  padding: 48px;
+  margin: 16px 0 16px 0;
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(107, 155, 196, 0.2588235294);
+}
+section form input {
+  border: 2px solid #4059AD;
+  border-radius: 8px;
+  color: #4059AD;
+  font-family: "Courier New", Courier, monospace;
+}
+section form input:hover {
+  font-size: 16px;
+  transition: 200ms;
+}
+section form input::-moz-placeholder {
+  color: #4059AD;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+}
+section form input::placeholder {
+  color: #4059AD;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+}
+section form button {
+  border: none;
+  color: #4059AD;
+  font-size: 16px;
+  background-color: rgba(107, 155, 196, 0);
+}
+section form button :hover {
+  font-size: 24px;
+  transition: 200ms;
+}
+section .container {
+  margin: 16px 0 16px 0;
+  border: 2px solid #4059AD;
+  border-radius: 8px;
   width: 100%;
 }
-
-#moveBtn {
-  background-color: gray;
-  border: 1px solid black;
-  margin: 6px;
+section .moveBtn {
+  border: none;
+  color: #4059AD;
+  font-family: "Courier New", Courier, monospace;
+  background-color: rgba(107, 155, 196, 0);
+  font-weight: 600;
+}
+section .moveBtn:hover {
+  font-size: 16px;
 }
 
 .fa-gear {
