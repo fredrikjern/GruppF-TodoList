@@ -1,40 +1,48 @@
+
 const buyList = document.getElementById("buy-list")
 
 
+let shoppingField = document.querySelector("#shoppingField");
+let homeField = document.querySelector("#homeField");
+let shopButton = document.querySelector("#shopButton");
+let homeButton = document.querySelector("#homeButton");
+let currentList = "";
 
-// Function that takes buyList or inventoryList and then calls the write function.
-async function apiGet(listName) {
-  let listID
-  if (listName === "buyList") {
-    listID = "63ea106e843a53f2e4b457f3"
-  } else if (listName === "inventoryList") {
-    listID = "63ea107d843a53f2e4b457f4"
-  } else {
-    return console.error("ApiGet function need to know if it is 'buylist' or 'inventoryList'!")
-  }
+async function apiGet(listID) {
   const res = await fetch(
-    `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
-    );
+    `https://nackademin-item-tracker.herokuapp.com/list/:${listID}`
+  );
   const data = await res.json();
-  console.log(data.itemList) //TODO Change this line to a draw function
+  return data;
 }
-
-
-
+// let buyListData = apiGet("63ea106e843a53f2e4b457f3");
+console.log(buyListData);
+// let inventoryListData = apiGet("63ea107d843a53f2e4b457f4");
+console.log(inventoryListData);
 // Api post funtion that adds items into buy list
-async function apiPost(str) {
+// ID till input fältet #shoppingField och #homeField
+// ID till knappen för input fältet #shopButton och #homeButton
+const shopValue = shoppingField.value;
+shoppingField.addEventListener("sumbit", function (e) {
+  e.preventDefault();
+  apiPost("63ea106e843a53f2e4b457f3");
+});
+async function apiPost(listID) {
   const res = await fetch(
-    `https://nackademin-item-tracker.herokuapp.com/lists/GruppF-UserName-Buy/items`,
+    `https://nackademin-item-tracker.herokuapp.com/lists/${listID}/items`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: str,
+        title: shopValue,
       }),
     }
   );
+  const { list } = await res.json();
+  console.log(list.itemList);
+  // drawItems(list.itemList);
   console.log("Hej");
   //const { buyList } = await res.json();
 }
@@ -49,13 +57,11 @@ const myArr = [
 // Takes all items and prits it to desired list
 function printToList(items, list) {
   list.innerHTML = "";
-  
+
   items.forEach((item) => {
     createItem(item);
   });
 }
-
-
 
 // This function takes in the a list and an item and deletes the selected item.
 // Use this in the context of the delete button appended to each list item.
