@@ -24,9 +24,13 @@
         <section id="shoppingContainer">
             <h3>Inköpslista</h2>
                 <form id="buy-list-input">
-                    <input type="text" id="shoppingField" placeholder="Vad ska du köpa?" required>
-                    <input type="text" id="shoppingDesc" placeholder="Hur mycket av det ska du köpa?" required>
-                    <button type="submit"><i class="fa-solid fa-plus"></i></button>
+                    <div>
+                        <input type="text" id="shoppingField" placeholder="Vad ska du köpa?" required>
+                        <input type="text" id="shoppingDesc" placeholder="Hur mycket av det ska du köpa?" required>
+                    </div>
+                    <div>
+                        <button type="submit"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                 </form>
                 <div id="shoppingList" class="container">
                     <ul id="buy-list"></ul>
@@ -38,14 +42,16 @@
         <section id="homeContainer">
             <h3>Har hemma</h2>
                 <form id="home-list-input">
-                    <input type="text" id="homeField" placeholder="Vad har du hemma?" required>
-                    <input type="text" id="homeDesc" placeholder="Hur mycket av det har du hemma?" required>
-                    <button type="submit" id="homeButton"><i class="fa-solid fa-plus"></i></button>
+                    <div>
+                        <input type="text" id="homeField" placeholder="Vad har du hemma?" required>
+                        <input type="text" id="homeDesc" placeholder="Hur mycket av det har du hemma?" required>
+                    </div>
+                    <div>
+                        <button type="submit" id="homeButton"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                 </form>
                 <div id="homeList" class="container">
-                    <ul>
-                        <li></li>
-                    </ul>
+                    <ul id="inventory-list"></ul>
                 </div>
                 <button class="moveBtn" id="homeMove">Flytta över</button>
         </section>
