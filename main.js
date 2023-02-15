@@ -6,13 +6,15 @@ let shopButton = document.querySelector("#shopButton");
 let homeButton = document.querySelector("#homeButton");
 let currentList = "";
 
+let buyID = "63ea106e843a53f2e4b457f3";
+let inventoryID = "63ea107d843a53f2e4b457f4";
 // Function that takes buyList or inventoryList and then calls the write function.
 async function apiGet(listName) {
   let listID;
   if (listName === "buyList") {
-    listID = "63ea106e843a53f2e4b457f3";
+    listID = buyID;
   } else if (listName === "inventoryList") {
-    listID = "63ea107d843a53f2e4b457f4";
+    listID = inventoryID;
   } else {
     return console.error(
       "ApiGet function need to know if it is 'buylist' or 'inventoryList'!"
@@ -28,16 +30,21 @@ async function apiGet(listName) {
 // Api post funtion that adds items into buy list
 // ID till input fältet #shoppingField och #homeField
 // ID till knappen för input fältet #shopButton och #homeButton
-const shopValue = shoppingField.value;
 shoppingField.addEventListener("submit", function (e) {
   e.preventDefault();
-  apiPost("63ea106e843a53f2e4b457f3");
+  apiPost(buyID);
 });
 homeField.addEventListener("submit", function (e) {
   e.preventDefault();
-  apiPost("63ea107d843a53f2e4b457f4");
+  apiPost(inventoryID);
 });
 async function apiPost(listID) {
+  let input;
+  if (listID === buyID) {
+    input = document.querySelector("#shoppingField").value;
+  } else if (listID === inventoryID) {
+    input = document.querySelector("#homeField").value;
+  }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}/items`,
     {
@@ -46,7 +53,7 @@ async function apiPost(listID) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: document.querySelector("#shoppingField").value,
+        title: input,
       }),
     }
   );
