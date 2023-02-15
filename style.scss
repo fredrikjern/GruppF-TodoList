@@ -107,6 +107,15 @@ section{
     }
 }
 
+li {
+    display: flex;
+    button {
+        margin-left: auto;
+        width: 30px;
+        height: 30px;
+    }
+}
+
 .fa-gear {
     font-size: 30px;
 }
