@@ -32,6 +32,30 @@ buyListInput.addEventListener("submit", (event)=>{
 });
 
 
+function createItem(item) { 
+  const liElem = document.createElement('li')
+  liElem.innerHTML = `<h4>${item.title}</h4><p>${item.description}${item.checked ? '✅' : ''}</p>`
+
+  const deleteItemBtn = document.createElement('button')
+  deleteItemBtn.innerText = 'Del'
+  liElem.appendChild(deleteItemBtn)
+  
+  const setAsCheckedBtn = document.createElement('button')
+  setAsCheckedBtn.innerText = 'Check'
+  liElem.appendChild(setAsCheckedBtn)
+
+  listItemHolder.appendChild(liElem)
+
+  deleteItemBtn.addEventListener('click', async function () { 
+    const res = await fetch(`${API_BASE}lists/${currentList}/items/${item._id}`, {
+      method: 'DELETE'
+    })
+    const { list } = await res.json()
+
+    drawItems(list.itemList)
+  })
+
+
 
 // Takes all items and prits it to desired list
 function printToList(items, list) {
