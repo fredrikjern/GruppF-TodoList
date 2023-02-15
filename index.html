@@ -52,19 +52,23 @@
       <section id="shoppingContainer">
         <h2>Inköpslista</h2>
         <form id="buy-list-input">
-          <input
-            type="text"
-            id="shoppingField"
-            placeholder="Vad ska du köpa?"
-            required
-          />
-          <input
-            type="text"
-            id="shoppingDesc"
-            placeholder="Hur mycket av det ska du köpa?"
-            required
-          />
-          <button type="submit"><i class="fa-solid fa-plus"></i></button>
+            <div>
+                <input
+                    type="text"
+                    id="shoppingField"
+                    placeholder="Vilken vara?"
+                    required
+                />
+                <input
+                    type="text"
+                    id="shoppingDesc"
+                    placeholder="Mängd?"
+                    required
+                />
+            </div>
+            <div>
+                <button type="submit"><i class="fa-solid fa-plus"></i></button>
+            </div>    
         </form>
         <div id="shoppingList" class="container">
           <ul id="buy-list"></ul>
@@ -73,11 +77,11 @@
       </section>
 
         <section id="homeContainer">
-            <h3>Har hemma</h2>
+            <h2>Har hemma</h2>
                 <form id="home-list-input">
                     <div>
-                        <input type="text" id="homeField" placeholder="Vad har du hemma?" required>
-                        <input type="text" id="homeDesc" placeholder="Hur mycket av det har du hemma?" required>
+                        <input type="text" id="homeField" placeholder="Vilken vara?" required>
+                        <input type="text" id="homeDesc" placeholder="Mängd?" required>
                     </div>
                     <div>
                         <button type="submit" id="homeButton"><i class="fa-solid fa-plus"></i></button>

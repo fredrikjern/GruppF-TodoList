@@ -36,6 +36,7 @@ section {
   margin: 16px 0 16px 0;
   width: 250px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 8px;
   background-color: rgba(107, 155, 196, 0.2588235294);
 }
 section form {
@@ -46,8 +47,21 @@ section form div:nth-of-type(1) input {
   border-radius: 8px;
   margin: 4px 0 4px 0;
   width: 200px;
+  background-color: rgba(107, 155, 196, 0);
   color: #4059AD;
   font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+}
+section form div:nth-of-type(1) input:focus {
+  color: #4059AD;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+}
+section form div:nth-of-type(1) input:focus::-moz-placeholder {
+  color: transparent;
+}
+section form div:nth-of-type(1) input:focus::placeholder {
+  color: transparent;
 }
 section form div:nth-of-type(1) input::-moz-placeholder {
   color: #4059AD;
