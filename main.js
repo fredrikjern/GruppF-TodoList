@@ -17,14 +17,12 @@ async function apiGet(listID) {
   } else if (listID === inventoryID) {
     listID = inventoryID;
   } else {
-    return console.error(
-      "ApiGet id error!"
-    );
+    return console.error("ApiGet id error!");
   }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
-  );
-  const data = await res.json();
+  )
+  const data = await res.json()
   printToList(data, listID)
 }
 
@@ -77,14 +75,16 @@ const myArr = [
     _id: "dsgdg32432fdf",
   },
 ];
+
+
 // Takes all items and prits it to desired list
-function printToList(items, listName) {
-  if (listName === buyID) {
+function printToList(items, listID) {
+  if (listID === buyID) {
     list = "buy-list"
-  } else if (listName === inventoryID) {
+  } else if (listID === inventoryID) {
     list = "inventory-list"
   }
-  list.innerHTML = "";
+  document.getElementById(list).innerHTML = ""
 
   items.itemList.forEach(item => {
     createItem(item, list);
