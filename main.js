@@ -13,20 +13,19 @@ let inventoryID = "63ea107d843a53f2e4b457f4";
 // Function that takes buyList or inventoryList and then calls the write function.
 async function apiGet(listName) {
   let listID;
-  if (listName === "buyList") {
+  if (listName === buyID) {
     listID = buyID;
-  } else if (listName === "inventoryList") {
+  } else if (listName === inventoryID) {
     listID = inventoryID;
   } else {
     return console.error(
-      "ApiGet function need to know if it is 'buyList' or 'inventoryList'!"
+      "ApiGet id error!"
     );
   }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
   );
   const data = await res.json();
-  // console.log(data.itemList); //TODO Change this line to a draw function
   printToList(data, listName)
 }
 
@@ -85,9 +84,9 @@ const myArr = [
 ];
 // Takes all items and prits it to desired list
 function printToList(items, listName) {
-  if (listName === "buyList") {
+  if (listName === buyID) {
     list = "buy-list"
-  } else if (listName === "inventoryList") {
+  } else if (listName === inventoryID) {
     list = "inventory-list"
   }
   list.innerHTML = "";
@@ -101,7 +100,7 @@ function printToList(items, listName) {
 function createItem(obj, list) {
   console.log(obj.title)
   let liElem = document.createElement("li")
-  liElem.innerHTML = `<p>${obj.title}</p>`
+  liElem.innerHTML = `<p>${obj.description}, ${obj.title}</p><button><i class="fa fa-trash" aria-hidden="true"></i></button>`
   document.getElementById(list).append(liElem)
 }
 
@@ -117,5 +116,5 @@ async function deleteFunction(currentList, item) {
 }
 
 
-apiGet("buyList")
-apiGet("inventoryList")
+apiGet(buyID)
+apiGet(inventoryID)
