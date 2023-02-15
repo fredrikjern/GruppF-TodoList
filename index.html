@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
+    <script src="header-styles.js" defer></script>
     <title>Document</title>
 </head>
 
@@ -16,9 +17,34 @@
         <nav>
             <i class="fa-solid fa-gear"></i>
             <img src="img/carrot_white.svg" alt="CarrotLogo" width="70" height="70">
-            <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-bars" id="hamburgerMenu"></i>
         </nav>
     </header>
+
+    <div id="menu">
+        <a href="#" class="hamburgerMenuItem"><i class="fa-solid fa-house">
+            <h6>Hem</h6>
+        </i>
+    </a>
+    <a href="#" class="hamburgerMenuItem">
+        <i class="fa-solid fa-book-open">
+            <h6>Recept</h6>
+        </i>
+    </a>
+    <a href="#" class="hamburgerMenuItem">
+        <i class="fa-solid fa-list">
+            <h6>Listor</h6>
+        </i>
+    </a>
+    <a href="#" class="hamburgerMenuItem">
+        <i class="fa-solid fa-user-group">
+            <h6>Vänner</h6>
+        </i>
+    </a>
+    </div>
+
+
+
 
     <div id="pageWrapper">
         <section id="shoppingContainer">
