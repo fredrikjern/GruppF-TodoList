@@ -58,6 +58,7 @@ async function apiPost(listID) {
       body: JSON.stringify({
         title: inputMain,
         description: inputDesc,
+        checked: false,
       }),
     }
   );
@@ -89,13 +90,20 @@ Creates a list-element from a item, list? and listIDs?
 */
 function createItem(obj, list, listIDs) {
   //console.log(listIDs);
+  // <input type="checkbox" name="${
+  //   list === "buy-list" ? "buy" : "inventory"
+  // }" id="" value="${obj._id}" ${obj.checked ? "checked" : ""}>
   console.log(list);
   let liElem = document.createElement("li");
-  liElem.innerHTML = `
-  <p>${obj.description}, ${obj.title}</p>
-  <input type="checkbox" name="${list==="buy-list"?"buy":"inventory"}" id="" value="${obj._id}">
-  `;
-
+  liElem.innerHTML = `<p>${obj.description}, ${obj.title}</p>`;
+  let checkbox = document.createElement("INPUT");
+  checkbox.setAttribute("type", "checkbox");
+  checkbox.setAttribute("name", `${list === "buy-list" ? "buy" : "inventory"}`);
+  checkbox.setAttribute("value", `${obj._id}`);
+  if (obj.checked==="true") {
+    checkbox.setAttribute("checked", "true");
+  }
+  liElem.append(checkbox)
   let deleteItemBtn = document.createElement("button");
   deleteItemBtn.classList.add("fa", "fa-trash");
   deleteItemBtn.setAttribute("aria-hidden", "true");
@@ -103,6 +111,20 @@ function createItem(obj, list, listIDs) {
 
   document.getElementById(list).append(liElem);
 
+  checkbox.addEventListener("change", async function () {
+    console.log("checkbox change eventlistener inne asyncfunctionen");
+    console.log(obj.checked);
+    const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        checked: `${obj.checked === "false" ? "true" : "false"}`,
+      }),
+    });
+    apiGet(listID)
+  });
   let listID = listIDs;
   deleteItemBtn.addEventListener("click", async function () {
     const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
@@ -125,5 +147,5 @@ homeField.addEventListener("submit", function (e) {
   e.preventDefault();
   apiPost(inventoryID);
 });
-apiGet(buyID);  // Initial call to API, to get the list to render
+apiGet(buyID); // Initial call to API, to get the list to render
 apiGet(inventoryID);
