@@ -71,6 +71,8 @@ items - an object
 listName - a string
 */
 function printToList(items, listName) {
+  console.log(items);
+  console.log(listName);
   if (listName === buyID) {
     list = "buy-list";
   } else if (listName === inventoryID) {
@@ -86,9 +88,13 @@ function printToList(items, listName) {
 Creates a list-element from a item, list? and listIDs? 
 */
 function createItem(obj, list, listIDs) {
+  //console.log(listIDs);
+  console.log(list);
   let liElem = document.createElement("li");
   liElem.innerHTML = `
-  <p>${obj.description}, ${obj.title}</p>`;
+  <p>${obj.description}, ${obj.title}</p>
+  <input type="checkbox" name="${list==="buy-list"?"buy":"inventory"}" id="" value="${obj._id}">
+  `;
 
   let deleteItemBtn = document.createElement("button");
   deleteItemBtn.classList.add("fa", "fa-trash");
@@ -102,7 +108,7 @@ function createItem(obj, list, listIDs) {
     const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
       method: "DELETE",
     }); // deletar objekt med _id.
-    console.log(listID);
+    console.log(listID + "  klick på delete");
     //let data = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
     apiGet(listID);
     // printToList(data.list);
