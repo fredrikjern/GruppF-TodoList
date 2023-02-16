@@ -1,144 +1,148 @@
-@import "./partials/variables";
-@import "./partials/mixins";
+//@import "./partials/variables";
+//@import "./partials/mixins";
 
-body{
-    background-color: $backgroud;
+body {
+    background-color: #EFF2F1;
     margin: 0;
-    color: $darkBlue;
-    font-family: $fontFamily;
-}
-
-header {
+    color: #4059AD;
+    font-family: "Courier New", Courier, monospace;
+  }
+  
+  header {
     width: 100%;
-    box-shadow: $shadowBox;
-    nav {
-        background-color: $orange;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 24px 8px 24px;
-        color: #EFF2F1;
-        img{
-            height: 48px;
-        }
-        i {
-            width: 30px;
-           &:hover{
-            font-size: 30px;
-            transition: 200ms;
-           } 
-        }
-    }
-}
-
-#pageWrapper {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  header nav {
+    background-color: #F4B942;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 24px 8px 24px;
+    color: #EFF2F1;
+  }
+  header nav img {
+    height: 48px;
+  }
+  header nav i {
+    width: 30px;
+  }
+  header nav i:hover {
+    font-size: 30px;
+    transition: 200ms;
+  }
+  
+  #pageWrapper {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-section{
+    position: relative;
+  }
+  
+  section {
     padding: 48px;
     margin: 16px 0 16px 0;
     width: 250px;
-    box-shadow: $shadowBox;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 8px;
-    background-color: $lightBlue;
-    form{
-        display: flex;
-        div:nth-of-type(1){
-            input{
-                @include border;
-                margin: 4px 0 4px 0;
-                width: 200px;
-                background-color: $lighterBlue;
-                color: $darkBlue;
-                font-family: $fontFamily;
-                font-weight: 600;
-                &:focus{
-                    color: $darkBlue;
-                    font-family: $fontFamily; 
-                    font-weight: 600;
-                    &::placeholder{
-                        color: transparent;
-                    }
-                }
-                &::placeholder{
-                    color: $darkBlue;
-                    font-family: $fontFamily;
-                    font-size: 16px;
-                }
-            }
-        }
-        div:nth-of-type(2){
-            display: flex;
-            align-items: center;
-            button{
-                border: none;
-                color: $darkBlue;
-                font-size: 16px;
-                background-color: $lighterBlue;
-                :hover{
-                    font-size: 24px;
-                    transition: 200ms;
-                }
-            }
-        }
-    }
-    .container {
-        margin: 16px 0 16px 0;
-        @include border;
-        width: 100%;
-        height: 400px;
-        overflow-y: scroll;
-        &::-webkit-scrollbar{
-            display: none;
-        }
-        ul{
-            list-style-type: none;
-            padding: 16px;
-            margin:0;
-            li {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-                button {
-                    border: none;
-                    background-color: $lighterBlue;
-                    i{
-                        color: $darkBlue;
-                        &:hover{
-                            font-size: 24px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    .moveBtn{
-        border: none;
-        color: $darkBlue;
-        font-family: $fontFamily;
-        background-color: $lighterBlue;
-        font-weight: 600;
-        i{
-            margin-left: 8px;
-        }
-        &:hover{
-            font-size: 16px;
-        }
-    }
-}
+    background-color: rgba(107, 155, 196, 0.2588235294);
+  }
 
-
-
-
-#menu {
+  section form {
+    display: flex;
+  }
+  section form div:nth-of-type(1) input {
+    border: 2px solid #4059AD;
+    border-radius: 8px;
+    margin: 4px 0 4px 0;
+    width: 200px;
+    background-color: rgba(107, 155, 196, 0);
+    color: #4059AD;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: 600;
+  }
+  section form div:nth-of-type(1) input:focus {
+    color: #4059AD;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: 600;
+  }
+  section form div:nth-of-type(1) input:focus::-moz-placeholder {
+    color: transparent;
+  }
+  section form div:nth-of-type(1) input:focus::placeholder {
+    color: transparent;
+  }
+  section form div:nth-of-type(1) input::-moz-placeholder {
+    color: #4059AD;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 16px;
+  }
+  section form div:nth-of-type(1) input::placeholder {
+    color: #4059AD;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 16px;
+  }
+  section form div:nth-of-type(2) {
+    display: flex;
+    align-items: center;
+  }
+  section form div:nth-of-type(2) button {
+    border: none;
+    color: #4059AD;
+    font-size: 16px;
+    background-color: rgba(107, 155, 196, 0);
+  }
+  section form div:nth-of-type(2) button :hover {
+    font-size: 24px;
+    transition: 200ms;
+  }
+  section .container {
+    margin: 16px 0 16px 0;
+    border: 2px solid #4059AD;
+    border-radius: 8px;
+    width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+  }
+  section .container::-webkit-scrollbar {
+    display: none;
+  }
+  section .container ul {
+    list-style-type: none;
+    padding: 16px;
+    margin: 0;
+  }
+  section .container ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  section .container ul li button {
+    border: none;
+    background-color: rgba(107, 155, 196, 0);
+  }
+  section .container ul li button i {
+    color: #4059AD;
+  }
+  section .container ul li button i:hover {
+    font-size: 24px;
+  }
+  section .moveBtn {
+    border: none;
+    color: #4059AD;
+    font-family: "Courier New", Courier, monospace;
+    background-color: rgba(107, 155, 196, 0);
+    font-weight: 600;
+  }
+  section .moveBtn:hover {
+    font-size: 16px;
+  }
+  
+  #menu {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -147,42 +151,57 @@ section{
     background-color: palegoldenrod;
     padding: 10px;
     font-size: 25px;
-    h6 {
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 16px;
-        margin-top: 10px;
-      }
   }
   
-  #hamburgerMenu:hover{
+  #hamburgerMenu:hover {
     transition: 400ms;
-    color:white;
+    color: white;
   }
   
-  a.hamburgerMenuItem{
-    &:link
-    {
-       color: black;
-       text-decoration: none;
-    }
-    &:visited
-    {
-       color: black;
-       text-decoration: none;
-    }
-    &:hover
-    {
-       color: white;
-       transition: 500ms;
-       text-decoration: none;
-    }
-    &:active
-    {
-        color: black;
-        text-decoration: none;
-    }
+  a.hamburgerMenuItem:link {
+    color: black;
+    text-decoration: none;
   }
+  
+  a.hamburgerMenuItem:visited {
+    color: black;
+    text-decoration: none;
+  }
+  
+  a.hamburgerMenuItem:hover {
+    color: white;
+    transition: 500ms;
+    text-decoration: none;
+  }
+  
+  a.hamburgerMenuItem:active {
+    color: black;
+    text-decoration: none;
+  }
+  
+  h6 {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  #arrow {
+    margin-left: 6px;  
+  }
+  
+.alertMessage-container{
+    background-color: white;
+    position: fixed; /* Stay in place */
+    //z-index: 1000; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    top: 35%;
+    width: 50%;
+    margin: auto;
+    padding:30px;
+    border-radius:5px;
+    box-shadow:0 0 15px 5px #ccc;
+    display: none;
+    
+}
 
-
-
-// # sourceMappingURL=style.css.map
+  /*# sourceMappingURL=style.css.map */

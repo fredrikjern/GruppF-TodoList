@@ -10,6 +10,10 @@ let currentList = "";
 let buyID = "63ea106e843a53f2e4b457f3";
 let inventoryID = "63ea107d843a53f2e4b457f4";
 
+let alertMessage = document.querySelector(".alertMessage-container");
+let alertMessageYes = document.querySelector(".alertMessage_yes");
+let alertMessageNo = document.querySelector(".alertMessage_no");
+
 /**
  * Function that takes buyList or inventoryList and then calls the write function.
  * @param {*} listID 
@@ -51,6 +55,71 @@ async function apiPost(listID) {
     throw new Error("Input måste innehålla minst en karaktär.");
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const checkList = await fetch(
+    `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
+  );
+  const listItems = await checkList.json();
+  console.log(listItems)
+
+ //Check if the item is in the list already. Loops weird right now.
+
+  IsInTheListAlready = false;
+  for (let i = 0; i < listItems.itemList.length; i++) {
+    console.log(listItems.itemList[i].title.toLowerCase(), inputMain.toLowerCase())
+    if (listItems.itemList[i].title.toLowerCase() === inputMain.toLowerCase()) {
+      IsInTheListAlready = true;
+      console.log(listItems.itemList[i].title)
+      //break the loop if item already in the list
+      break;
+    } else {
+      IsInTheListAlready = false;   
+    }
+    console.log(IsInTheListAlready)
+  }
+  
+//If pressing no and then yes next time the list fills with previous choices.
+
+  if (IsInTheListAlready) {
+    console.log(`Du har redan ${inputDesc} ${inputMain}. Vill du lägga till ${inputDesc} ${inputMain} ändå?`);
+      document.querySelector(".alertContent").innerHTML = `<p>Du har redan ${inputDesc} ${inputMain}. Vill du lägga till ${inputDesc} ${inputMain} ändå?</p>`;
+      alertMessage.style.display = "block";
+
+      alertMessageYes.addEventListener("click", function(e) {
+        e.preventDefault();
+        addItemToList(listID, inputMain, inputDesc)
+        alertMessage.style.display = "none";
+      })
+      alertMessageNo.addEventListener("click", function(e) {
+        e.preventDefault();
+        alertMessage.style.display = "none";
+      })
+  } else {
+    addItemToList(listID, inputMain, inputDesc)
+  }
+ }
+
+  async function addItemToList(listansID, inputVara, inputAntal) {
+    const res = await fetch(
+      `https://nackademin-item-tracker.herokuapp.com/lists/${listansID}/items`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: inputVara,
+          description: inputAntal,
+          checked: false,
+        }),
+      }
+    );
+    const data = await res.json();
+    printToList(data.list, listansID);
+  }
+
+  /**
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}/items`,
     {
@@ -67,7 +136,8 @@ async function apiPost(listID) {
   );
   const data = await res.json();
   printToList(data.list, listID);
-}
+  **/
+
 /**
  * 
  * @param {* An array with objects} items 

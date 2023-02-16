@@ -9,6 +9,7 @@ header {
   width: 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 header nav {
   background-color: #F4B942;
   display: flex;
@@ -18,12 +19,15 @@ header nav {
   padding: 8px 24px 8px 24px;
   color: #EFF2F1;
 }
+
 header nav img {
   height: 48px;
 }
+
 header nav i {
   width: 30px;
 }
+
 header nav i:hover {
   font-size: 30px;
   transition: 200ms;
@@ -36,6 +40,7 @@ header nav i:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 
 section {
@@ -46,9 +51,11 @@ section {
   border-radius: 8px;
   background-color: rgba(107, 155, 196, 0.2588235294);
 }
+
 section form {
   display: flex;
 }
+
 section form div:nth-of-type(1) input {
   border: 2px solid #4059AD;
   border-radius: 8px;
@@ -59,41 +66,50 @@ section form div:nth-of-type(1) input {
   font-family: "Courier New", Courier, monospace;
   font-weight: 600;
 }
+
 section form div:nth-of-type(1) input:focus {
   color: #4059AD;
   font-family: "Courier New", Courier, monospace;
   font-weight: 600;
 }
+
 section form div:nth-of-type(1) input:focus::-moz-placeholder {
   color: transparent;
 }
+
 section form div:nth-of-type(1) input:focus::placeholder {
   color: transparent;
 }
+
 section form div:nth-of-type(1) input::-moz-placeholder {
   color: #4059AD;
   font-family: "Courier New", Courier, monospace;
   font-size: 16px;
 }
+
 section form div:nth-of-type(1) input::placeholder {
   color: #4059AD;
   font-family: "Courier New", Courier, monospace;
   font-size: 16px;
 }
+
 section form div:nth-of-type(2) {
   display: flex;
   align-items: center;
 }
+
 section form div:nth-of-type(2) button {
   border: none;
   color: #4059AD;
   font-size: 16px;
   background-color: rgba(107, 155, 196, 0);
 }
+
 section form div:nth-of-type(2) button :hover {
   font-size: 24px;
   transition: 200ms;
 }
+
 section .container {
   margin: 16px 0 16px 0;
   border: 2px solid #4059AD;
@@ -102,30 +118,37 @@ section .container {
   height: 400px;
   overflow-y: scroll;
 }
+
 section .container::-webkit-scrollbar {
   display: none;
 }
+
 section .container ul {
   list-style-type: none;
   padding: 16px;
   margin: 0;
 }
+
 section .container ul li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
+
 section .container ul li button {
   border: none;
   background-color: rgba(107, 155, 196, 0);
 }
+
 section .container ul li button i {
   color: #4059AD;
 }
+
 section .container ul li button i:hover {
   font-size: 24px;
 }
+
 section .moveBtn {
   border: none;
   color: #4059AD;
@@ -133,6 +156,7 @@ section .moveBtn {
   background-color: rgba(107, 155, 196, 0);
   font-weight: 600;
 }
+
 section .moveBtn:hover {
   font-size: 16px;
 }
@@ -182,4 +206,19 @@ h6 {
 
 #arrow {
   margin-left: 6px;
-}/*# sourceMappingURL=style.css.map */
+}
+
+.alertMessage-container {
+  background-color: white;
+  position: fixed; /* Stay in place */
+  padding-top: 100px; /* Location of the box */
+  top: 35%;
+  width: 50%;
+  margin: auto;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px 5px #ccc;
+  display: none;
+}
+
+/*# sourceMappingURL=style.css.map */
