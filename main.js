@@ -2,15 +2,16 @@ const API_BASE = "https://nackademin-item-tracker.herokuapp.com/"; //Den delen a
 const buyList = document.getElementById("buy-list");
 let shoppingField = document.querySelector("#buy-list-input");
 let homeField = document.querySelector("#home-list-input");
+
 let shopButton = document.querySelector("#shopButton");
 let homeButton = document.querySelector("#homeButton");
 let currentList = "";
 
 let buyID = "63ea106e843a53f2e4b457f3";
 let inventoryID = "63ea107d843a53f2e4b457f4";
-
-// Function that takes buyList or inventoryList and then calls the write function.
-
+/*
+ Function that takes buyList or inventoryList and then calls the write function.
+*/
 async function apiGet(listID) {
   if (listID === buyID) {
     listID = buyID;
@@ -26,27 +27,21 @@ async function apiGet(listID) {
   const data = await res.json();
   printToList(data, listID);
 }
-
-// Api post funtion that adds items into buy list
-// ID till input fältet #shoppingField och #homeField
-// ID till knappen för input fältet #shopButton och #homeButton
-shoppingField.addEventListener("submit", function (e) {
-  e.preventDefault();
-  apiPost(buyID);
-});
-homeField.addEventListener("submit", function (e) {
-  e.preventDefault();
-  apiPost(inventoryID);
-});
+/*
+Post new objects to a list which is specified in the input
+Input: a string with the list ID
+ */
 async function apiPost(listID) {
   let inputMain;
   let inputDesc;
   if (listID === buyID) {
     inputMain = document.querySelector("#shoppingField").value;
     inputDesc = document.querySelector("#shoppingDesc").value;
+    shoppingField.reset();
   } else if (listID === inventoryID) {
     inputMain = document.querySelector("#homeField").value;
     inputDesc = document.querySelector("#homeDesc").value;
+    homeField.reset();
   }
   if (!inputMain.trim().length || !inputDesc.trim().length) {
     alert("Du måste skriva något i båda fälten.");
@@ -69,8 +64,12 @@ async function apiPost(listID) {
   const data = await res.json();
   printToList(data.list, listID);
 }
-
-// Takes all items and prits it to desired list
+/*
+Takes all items and prints it to desired list in the DOM
+Input:
+items - an object
+listName - a string
+*/
 function printToList(items, listName) {
   if (listName === buyID) {
     list = "buy-list";
@@ -83,14 +82,16 @@ function printToList(items, listName) {
     createItem(item, list, listName);
   });
 }
-
+/*
+Creates a list-element from a item, list? and listIDs? 
+*/
 function createItem(obj, list, listIDs) {
   let liElem = document.createElement("li");
-  liElem.innerHTML = `<p>${obj.description}, ${obj.title}</p>`;
+  liElem.innerHTML = `
+  <p>${obj.description}, ${obj.title}</p>`;
 
   let deleteItemBtn = document.createElement("button");
-  deleteItemBtn.classList.add("fa");
-  deleteItemBtn.classList.add("fa-trash");
+  deleteItemBtn.classList.add("fa", "fa-trash");
   deleteItemBtn.setAttribute("aria-hidden", "true");
   liElem.append(deleteItemBtn);
 
@@ -102,11 +103,21 @@ function createItem(obj, list, listIDs) {
       method: "DELETE",
     }); // deletar objekt med _id.
     console.log(listID);
-    let data = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
+    //let data = await res.json(); // Hämtar den nya listan som där objektet är borttaget.
     apiGet(listID);
     // printToList(data.list);
   });
 }
-
-apiGet(buyID);
+/*
+Eventlisteners for forms event submit 
+*/
+shoppingField.addEventListener("submit", function (e) {
+  e.preventDefault();
+  apiPost(buyID);
+});
+homeField.addEventListener("submit", function (e) {
+  e.preventDefault();
+  apiPost(inventoryID);
+});
+apiGet(buyID);  // Initial call to API, to get the list to render
 apiGet(inventoryID);
