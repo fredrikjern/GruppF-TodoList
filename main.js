@@ -112,8 +112,6 @@ function createItem(obj, list, listIDs) {
   label.append(span)
   div.append(label)
 
-  if()
-
   let deleteItemBtn = document.createElement("button");
   deleteItemBtn.classList.add("fa", "fa-trash");
   deleteItemBtn.setAttribute("aria-hidden", "true");
