@@ -101,7 +101,7 @@ function createItem(obj, list, listIDs) {
   let div = document.createElement("div");
 
   let label = document.createElement("label");
-  let span = document.createElement("span");
+  let span = document.createElement("span"); 
   span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
   let checkbox = document.createElement("INPUT");
   checkbox.setAttribute("type", "checkbox");
