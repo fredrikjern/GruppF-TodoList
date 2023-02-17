@@ -12,8 +12,8 @@ let inventoryID = "63ea107d843a53f2e4b457f4";
 
 /**
  * Function that takes buyList or inventoryList and then calls the write function.
- * @param {*} listID 
- * @returns 
+ * @param {*} listID
+ * @returns
  */
 async function apiGet(listID) {
   if (listID === buyID) {
@@ -32,7 +32,7 @@ async function apiGet(listID) {
 }
 /**
  * Post new objects to a list which is specified in the input
- * @param {* a string with the list ID} listID 
+ * @param {* a string with the list ID} listID
  */
 async function apiPost(listID) {
   let inputMain;
@@ -69,13 +69,13 @@ async function apiPost(listID) {
   printToList(data.list, listID);
 }
 /**
- * 
- * @param {* An array with objects} items 
- * @param {* A String} listName 
+ *
+ * @param {* An array with objects} items
+ * @param {* A String} listName
  */
 function printToList(items, listName) {
-  console.log(items);
-  console.log(listName);
+  // console.log(items);
+  // console.log(listName);
   if (listName === buyID) {
     list = "buy-list";
   } else if (listName === inventoryID) {
@@ -87,29 +87,29 @@ function printToList(items, listName) {
     createItem(item, list, listName);
   });
 }
-/** 
+/**
  * createItem
- * @param {*} obj 
- * @param {*} list 
- * @param {*} listIDs 
+ * @param {*} obj
+ * @param {*} list
+ * @param {*} listIDs
  */
 function createItem(obj, list, listIDs) {
-  console.log(list);
+  // console.log(list);
   let liElem = document.createElement("li");
   liElem.innerHTML = `<p>${obj.description}, ${obj.title}</p>`;
-  
+
   let checkbox = document.createElement("INPUT");
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("name", `${list === "buy-list" ? "buy" : "inventory"}`);
   checkbox.setAttribute("value", `${obj._id}`);
-  if (obj.checked==="true") checkbox.setAttribute("checked", "true");
-  liElem.append(checkbox)
+  if (obj.checked === "true") checkbox.setAttribute("checked", "true");
+  liElem.append(checkbox);
 
   let deleteItemBtn = document.createElement("button");
   deleteItemBtn.classList.add("fa", "fa-trash");
   deleteItemBtn.setAttribute("aria-hidden", "true");
   liElem.append(deleteItemBtn);
-  
+
   document.getElementById(list).append(liElem); // It's here the element is added to the DOM and eventlisteners can be added.
 
   checkbox.addEventListener("change", async function () {
@@ -122,21 +122,31 @@ function createItem(obj, list, listIDs) {
         checked: `${obj.checked === "false" ? "true" : "false"}`,
       }),
     });
-    apiGet(listID)
+    apiGet(listID);
   });
   let listID = listIDs;
   deleteItemBtn.addEventListener("click", async function () {
-    const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
-      method: "DELETE",
-    }); // deletar objekt med _id.
-    console.log(listID + "  klick på delete");
-
-    apiGet(listID);
+    apiDelete(listID, obj);
     // printToList(data.list);
   });
 }
+
+async function apiDelete(listID, obj) {
+  const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
+    method: "DELETE",
+  }); // deletar objekt med _id.
+  console.log(listID + "  klick på delete");
+  apiGet(listID);
+  // printToList(data.list);
+}
+
+function transferItems(obj, listName) {
+  if (obj.checked === "true") {
+  }
+}
+
 /**
- * Eventlisteners for forms, event submit 
+ * Eventlisteners for forms, event submit
  */
 shoppingField.addEventListener("submit", function (e) {
   e.preventDefault();
