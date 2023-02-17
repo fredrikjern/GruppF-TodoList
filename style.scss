@@ -1,5 +1,15 @@
-@use "./partials/variables";
-@use "./partials/mixins";
+$backgroud: #EFF2F1;
+$orange: #F4B942;
+$lightBlue: #6999c342;
+$lighterBlue:#6b9bc400;
+$darkBlue: #4059AD;
+$shadowBox: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+$fontFamily: 'Courier New', Courier, monospace;
+
+@mixin border{
+    border: 2px solid $darkBlue;
+    border-radius: 8px;
+}
 
 body{
     background-color: $backgroud;
@@ -83,7 +93,7 @@ section{
                 font-size: 16px;
                 background-color: $lighterBlue;
                 :hover{
-                    font-size: 24px;
+                    transform: scale(1.5);
                     transition: 200ms;
                 }
             }
@@ -105,15 +115,45 @@ section{
             li {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
                 width: 100%;
-                button {
-                    border: none;
-                    background-color: $lighterBlue;
-                    i{
+                div{
+                    display: flex;
+                    justify-content: center;
+                    button {
+                        border: none;
+                        background-color: $lighterBlue;
                         color: $darkBlue;
                         &:hover{
-                            font-size: 24px;
+                            transform: scale(1.5);
+                            transition: 200ms;
+                        }
+                    }
+                    label{
+                        display: block;
+                        position: relative;
+                        left:0;
+                        input{
+                            position: absolute;
+                            opacity: 0;
+                            cursor: pointer;
+                            height: 0;
+                            width: 0;
+                        }
+                        span{
+                            position: absolute;
+                            top: 16px;
+                            left: -20px;
+                            font-size: 16px;
+                            color: $darkBlue;
+                            &:hover{
+                                transform: scale(1.5);
+                                transition: 200ms;
+                            }
+                        }
+                        input:checked ~ span{
+                                color:$orange;
+                                transform: scale(1.5);
+                                transition: 200ms;
                         }
                     }
                 }
@@ -130,7 +170,8 @@ section{
             margin-left: 8px;
         }
         &:hover{
-            font-size: 16px;
+            transform: scale(1.1);
+            transition: 200ms;
         }
     }
 }
