@@ -139,11 +139,40 @@ async function apiDelete(listID, obj) {
   apiGet(listID);
   // printToList(data.list);
 }
+function myFunc() {
+  let arr = [];
+  let checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
 
-function transferItems(obj, listName) {
-  if (obj.checked === "true") {
-  }
+  checkboxes.forEach((item) => {
+    arr.push(item.value);
+  });
 }
+
+function transferItems(checkName, listID) {
+  let checked = [];
+  let id = listID;
+  let checkedboxes = document.querySelectorAll(
+    "input[type='checkbox']" + "[name=" + CSS.escape(checkName) + "]"
+  );
+  console.log(checkedboxes);
+  checkedboxes.forEach((item) => {
+    if (item.checked === true) {
+      // apiDelete(id, item.value);
+      // checked.push(item.value);
+    }
+  });
+  console.log(checked);
+  // if (obj.checked === "true") {
+  //   apiDelete(listID, obj);
+  // }
+}
+let buyCheck = "buy";
+let inventoryCheck = "inventory";
+let shoppingMove = document.querySelector("#shoppingMove");
+shoppingMove.addEventListener("click", function (e) {
+  e.preventDefault();
+  transferItems(buyCheck, buyID);
+});
 
 /**
  * Eventlisteners for forms, event submit
