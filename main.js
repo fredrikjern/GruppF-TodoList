@@ -141,7 +141,7 @@ shoppingField.addEventListener("submit",async function (e) {
         addItemToList(buyID,inputMain,inputDesc);
        
     }else{
-        document.querySelector(".alertContent").innerHTML = `<p>Du har redan ${inputMain}. Vill du lägga till ${inputMain} ändå?</p>`;
+        document.querySelector(".alertContent").innerHTML = `<p>Du har redan ${inputMain} hemma. Vill du lägga till ${inputMain} i inköpslistan ändå?</p>`;
         alertMessage.style.display = "block";
     }
     }
