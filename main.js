@@ -14,6 +14,9 @@ let alertMessage = document.querySelector(".alertMessage-container");
 let alertMessageYes = document.querySelector(".alertMessage_yes");
 let alertMessageNo = document.querySelector(".alertMessage_no");
 
+let alertMessageNumber2 = document.querySelector(".alertMessageNumber2-container");
+let alertMessageNumber2Yes = document.querySelector(".alertMessageNumber2_yes");
+let alertMessageNumber2No = document.querySelector(".alertMessageNumber2_no");
 
 //Get the list with API
 async function apiGet(listID) {
@@ -141,7 +144,7 @@ shoppingField.addEventListener("submit",async function (e) {
         addItemToList(buyID,inputMain,inputDesc);
        
     }else{
-        document.querySelector(".alertContent").innerHTML = `<p>Du har redan ${inputMain} hemma. Vill du lägga till ${inputMain} i inköpslistan ändå?</p>`;
+        document.querySelector(".alertContent1").innerHTML = `<p>Du har redan ${inputMain} hemma. Vill du lägga till ${inputMain} i inköpslistan ändå?</p>`;
         alertMessage.style.display = "block";
     }
     }
@@ -163,6 +166,8 @@ shoppingField.addEventListener("submit",async function (e) {
     addItemToList(buyID, inputMain, inputDesc)
     alertMessage.style.display = "none";
     shoppingField.reset();
+    document.querySelector(".alertContent2").innerHTML = `<p>Vill du ta bort ${inputMain} ur hemma?`;
+    alertMessageNumber2.style.display = "block";
   })
 
   alertMessageNo.addEventListener("click", function(e) {
@@ -171,5 +176,45 @@ shoppingField.addEventListener("submit",async function (e) {
     shoppingField.reset();
   })
 
+
+ ///delete function///
+async function deleteFromInventory (inputMain , object, listIDs){
+  const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
+    method: "DELETE",
+  }); // deletar objekt med _id.
+
+  apiGet(listID);
+}
+
+
+alertMessageNumber2Yes.addEventListener("click", function(e){
+  e.preventDefault();
+  inputMain = document.querySelector("#shoppingField").value;
+  inputDesc = document.querySelector("#shoppingDesc").value;
+  ///here will be delete function///
+  alertMessageNumber2.style.display = "none";
+
+})
+
+
+alertMessageNumber2No.addEventListener("click", function(e){
+  e.preventDefault();
+  alertMessageNumber2.style.display = "none";
+})
+
+
+
 apiGet(buyID);
 apiGet(inventoryID);
+
+
+
+
+
+
+
+
+
+
+
+
