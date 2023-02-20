@@ -44,7 +44,6 @@ async function apiGet(listID) {
     });
   }
 
-
   //Create list items from the API list
   function createItem(obj, list, listIDs) {
     console.log(list);
@@ -86,7 +85,6 @@ async function apiGet(listID) {
       console.log(listID + "  klick på delete");
   
       apiGet(listID);
-      // printToList(data.list);
     });
   }
 
@@ -111,9 +109,7 @@ async function apiGet(listID) {
   }
 
 
-
 // Check if the item is in the home inventory.
-
 async function compareInputToInventory (listID,item){ 
     const checkList = await fetch(
         `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
@@ -125,7 +121,7 @@ async function compareInputToInventory (listID,item){
     console.log(listItems.itemList[i].title.toLowerCase(), item.toLowerCase())
     if (listItems.itemList[i].title.toLowerCase() === item.toLowerCase()) {
       console.log("Jag hittar " + listItems.itemList[i].title + " i inventory!")
-
+      console.log(listItems.itemList[i]._id);
       return true;
     }
   } 
@@ -165,7 +161,6 @@ shoppingField.addEventListener("submit",async function (e) {
     inputDesc = document.querySelector("#shoppingDesc").value;
     addItemToList(buyID, inputMain, inputDesc)
     alertMessage.style.display = "none";
-    shoppingField.reset();
     document.querySelector(".alertContent2").innerHTML = `<p>Vill du ta bort ${inputMain} ur hemma?`;
     alertMessageNumber2.style.display = "block";
   })
@@ -176,24 +171,35 @@ shoppingField.addEventListener("submit",async function (e) {
     shoppingField.reset();
   })
 
+  //////////////////////////////////////////////////////////////////////////
 
  ///delete function///
-async function deleteFromInventory (inputMain , object, listIDs){
-  const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
-    method: "DELETE",
-  }); // deletar objekt med _id.
+async function deleteFromInventory (object){
+  const checkList = await fetch(
+    `https://nackademin-item-tracker.herokuapp.com/lists/${inventoryID}`
+  );
+  const listItems = await checkList.json();
+  console.log(object);
+  console.log(listItems);
 
-  apiGet(listID);
-}
+  for (let i = 0; i < listItems.itemList.length; i++) {
+    console.log(listItems.itemList[i].title, listItems.itemList[i]._id);
+    if (listItems.itemList[i].title.toLowerCase() === object.toLowerCase()) {
+      console.log("I FOUND IT!!!!!!!");
 
+      const res = await fetch(`${API_BASE}lists/${inventoryID}/items/${listItems.itemList[i]._id}`, {
+        method: "DELETE",
+      });
+      window.location.reload();
+      }}}
+  
 
 alertMessageNumber2Yes.addEventListener("click", function(e){
   e.preventDefault();
   inputMain = document.querySelector("#shoppingField").value;
   inputDesc = document.querySelector("#shoppingDesc").value;
-  ///here will be delete function///
+  deleteFromInventory(inputMain);
   alertMessageNumber2.style.display = "none";
-
 })
 
 
@@ -201,7 +207,6 @@ alertMessageNumber2No.addEventListener("click", function(e){
   e.preventDefault();
   alertMessageNumber2.style.display = "none";
 })
-
 
 
 apiGet(buyID);
