@@ -10,6 +10,13 @@ $fontFamily: 'Courier New', Courier, monospace;
     border: 2px solid $darkBlue;
     border-radius: 4px;
 }
+@mixin button{
+    background: $darkBlue;
+    border: none;
+    border-radius: 4px;
+    color:white;
+    font-family: $fontFamily;
+}
 
 body{
     background-color: $backgroud;
@@ -246,7 +253,9 @@ section{
     box-shadow:0 0 15px 5px #ccc;
     display: none;
     z-index: 2;
-    
+    button{
+        @include button;
+    }  
 }
 
 .alertMessageNumber2-container{
@@ -261,6 +270,9 @@ section{
   box-shadow:0 0 15px 5px #ccc;
   display: none;
   z-index: 2;
+  button{
+      @include button;
+  }
 }
 
   /*# sourceMappingURL=style.css.map */

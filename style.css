@@ -233,6 +233,13 @@ a.hamburgerMenuItem:active {
   display: none;
   z-index: 2;
 }
+.alertMessage-container button {
+  background: #4059AD;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+}
 
 .alertMessageNumber2-container {
   background-color: white;
@@ -246,6 +253,13 @@ a.hamburgerMenuItem:active {
   box-shadow: 0 0 15px 5px #ccc;
   display: none;
   z-index: 2;
+}
+.alertMessageNumber2-container button {
+  background: #4059AD;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
 }
 
 /*# sourceMappingURL=style.css.map */
