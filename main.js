@@ -216,16 +216,6 @@ shoppingField.addEventListener("submit", function (e) {
 
   apiPost(buyID, inputMain, inputDesc);
 });
-shoppingField.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  let inputMain = document.querySelector("#shoppingField").value;
-  let inputDesc = document.querySelector("#shoppingDesc").value;
-  errorMessage(inputMain, inputDesc);
-  shoppingField.reset();
-
-  apiPost(buyID, inputMain, inputDesc);
-});
 homeField.addEventListener("submit", function (e) {
   e.preventDefault();
   let inputMain = document.querySelector("#homeField").value;
