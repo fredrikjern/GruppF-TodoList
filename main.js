@@ -2,6 +2,8 @@ const API_BASE = "https://nackademin-item-tracker.herokuapp.com/"; //Den delen a
 const buyList = document.getElementById("buy-list");
 let shoppingField = document.querySelector("#buy-list-input");
 let homeField = document.querySelector("#home-list-input");
+let shoppingMove = document.querySelector("#shopping-move");
+let inventoryMove = document.querySelector("#inventory-move");
 
 let shopButton = document.querySelector("#shopButton");
 let homeButton = document.querySelector("#homeButton");
@@ -12,8 +14,8 @@ let inventoryID = "63ea107d843a53f2e4b457f4";
 
 /**
  * Function that takes buyList or inventoryList and then calls the write function.
- * @param {*} listID 
- * @returns 
+ * @param {*} listID
+ * @returns
  */
 async function apiGet(listID) {
   if (listID === buyID) {
@@ -32,24 +34,10 @@ async function apiGet(listID) {
 }
 /**
  * Post new objects to a list which is specified in the input
- * @param {* a string with the list ID} listID 
+ * @param {* a string with the list ID} listID
  */
-async function apiPost(listID) {
-  let inputMain;
-  let inputDesc;
-  if (listID === buyID) {
-    inputMain = document.querySelector("#shoppingField").value;
-    inputDesc = document.querySelector("#shoppingDesc").value;
-    shoppingField.reset();
-  } else if (listID === inventoryID) {
-    inputMain = document.querySelector("#homeField").value;
-    inputDesc = document.querySelector("#homeDesc").value;
-    homeField.reset();
-  }
-  if (!inputMain.trim().length || !inputDesc.trim().length) {
-    alert("Du måste skriva något i båda fälten.");
-    throw new Error("Input måste innehålla minst en karaktär.");
-  }
+async function apiPost(listID,title,description) {
+  
 
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}/items`,
@@ -59,8 +47,8 @@ async function apiPost(listID) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: inputMain,
-        description: inputDesc,
+        title: title,
+        description: description,
         checked: false,
       }),
     }
@@ -68,14 +56,34 @@ async function apiPost(listID) {
   const data = await res.json();
   printToList(data.list, listID);
 }
+
+
+async function addItemToList(listansID, inputVara, inputAntal) {
+  const res = await fetch(
+    `https://nackademin-item-tracker.herokuapp.com/lists/${listansID}/items`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: inputVara,
+        description: inputAntal,
+        checked: false,
+      }),
+    }
+  );
+  const data = await res.json();
+  printToList(data.list, listansID);
+}
 /**
- * 
- * @param {* An array with objects} items 
- * @param {* A String} listName 
+ *
+ * @param {* An array with objects} items
+ * @param {* A String} listName
  */
 function printToList(items, listName) {
-  console.log(items);
-  console.log(listName);
+  // console.log(items);
+  // console.log(listName);
   if (listName === buyID) {
     list = "buy-list";
   } else if (listName === inventoryID) {
@@ -87,17 +95,17 @@ function printToList(items, listName) {
     createItem(item, list, listName);
   });
 }
-/** 
+/**
  * createItem
- * @param {*} obj 
- * @param {*} list 
- * @param {*} listIDs 
+ * @param {*} obj
+ * @param {*} list
+ * @param {*} listIDs
  */
 function createItem(obj, list, listIDs) {
-  console.log(list);
+  // console.log(list);
   let liElem = document.createElement("li");
   liElem.innerHTML = `<p>${obj.title}, ${obj.description}</p>`;
-  
+
   let div = document.createElement("div");
 
   let label = document.createElement("label");
@@ -107,17 +115,17 @@ function createItem(obj, list, listIDs) {
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("name", `${list === "buy-list" ? "buy" : "inventory"}`);
   checkbox.setAttribute("value", `${obj._id}`);
-  if (obj.checked==="true") checkbox.setAttribute("checked", "true");
-  label.append(checkbox)
-  label.append(span)
-  div.append(label)
+  if (obj.checked === "true") checkbox.setAttribute("checked", "true");
+  label.append(checkbox);
+  label.append(span);
+  div.append(label);
 
   let deleteItemBtn = document.createElement("button");
   deleteItemBtn.classList.add("fa", "fa-trash");
   deleteItemBtn.setAttribute("aria-hidden", "true");
   div.append(deleteItemBtn);
   liElem.append(div);
-  
+
   document.getElementById(list).append(liElem); // It's here the element is added to the DOM and eventlisteners can be added.
 
   label.addEventListener("change", async function () {
@@ -130,30 +138,73 @@ function createItem(obj, list, listIDs) {
         checked: `${obj.checked === "false" ? "true" : "false"}`,
       }),
     });
-    apiGet(listID)
+    apiGet(listID);
   });
   let listID = listIDs;
   deleteItemBtn.addEventListener("click", async function () {
     const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
       method: "DELETE",
     }); // deletar objekt med _id.
-    console.log(listID + "  klick på delete");
+    // console.log(listID + "  klick på delete");
 
     apiGet(listID);
     // printToList(data.list);
   });
 }
+//!-------------------
+// collect allt checked checkboxes in one list, post copied item, then delete old item.
+function transferItems(listname) {
+  let checkboxes = document.querySelectorAll(`[name='${listname}']`);
+  console.log(checkboxes);
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+
+      //let newTitle =checkbox.title
+      //let newDesc=checkbox.desc
+      // delete på (checkbox.value)ID
+    }
+    //console.log(checkbox);
+  });
+}
+
+const errorMessage = (inputMain, inputDesc) => {
+  if (!inputMain.trim().length || !inputDesc.trim().length) {
+    alert("Du måste skriva något i båda fälten.");
+    throw new Error("Input måste innehålla minst en karaktär.");
+  }
+}
+
+//
 /**
- * Eventlisteners for forms, event submit 
+ * Eventlisteners for forms, event submit
  */
 shoppingField.addEventListener("submit", function (e) {
   e.preventDefault();
-  apiPost(buyID);
+  
+    let inputMain = document.querySelector("#shoppingField").value;
+    let inputDesc = document.querySelector("#shoppingDesc").value;
+    errorMessage(inputMain, inputDesc)
+    shoppingField.reset();
+  
+    apiPost(buyID, inputMain, inputDesc);
 });
 homeField.addEventListener("submit", function (e) {
   e.preventDefault();
-  apiPost(inventoryID);
+   let inputMain = document.querySelector("#homeField").value;
+   let inputDesc = document.querySelector("#homeDesc").value;
+   errorMessage(inputMain, inputDesc)
+   homeField.reset();
+  apiPost(inventoryID, inputMain, inputDesc);
 });
+
+shoppingMove.addEventListener("click", function (e) {
+  transferItems("buy")
+});
+
+inventoryMove.addEventListener("click", function (e) {
+  transferItems("inventory")
+});
+
 /**
  * Initial call to API, to get the list to render
  */
