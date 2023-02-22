@@ -44,7 +44,7 @@ section {
   width: 250px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 8px;
-  background-color: rgba(107, 155, 196, 0.2588235294);
+  background-color: rgba(105, 153, 195, 0.2588235294);
 }
 section form {
   display: flex;
@@ -91,7 +91,7 @@ section form div:nth-of-type(2) button {
   background-color: rgba(107, 155, 196, 0);
 }
 section form div:nth-of-type(2) button :hover {
-  font-size: 24px;
+  transform: scale(1.5);
   transition: 200ms;
 }
 section .container {
@@ -113,18 +113,48 @@ section .container ul {
 section .container ul li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
 }
-section .container ul li button {
+section .container ul li div {
+  display: flex;
+  justify-content: center;
+}
+section .container ul li div button {
   border: none;
   background-color: rgba(107, 155, 196, 0);
-}
-section .container ul li button i {
   color: #4059AD;
 }
-section .container ul li button i:hover {
-  font-size: 24px;
+section .container ul li div button:hover {
+  transform: scale(1.5);
+  transition: 200ms;
+}
+section .container ul li div label {
+  display: block;
+  position: relative;
+  left: 0;
+}
+section .container ul li div label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+section .container ul li div label span {
+  position: absolute;
+  top: 16px;
+  left: -20px;
+  font-size: 16px;
+  color: #4059AD;
+}
+section .container ul li div label span:hover {
+  transform: scale(1.5);
+  transition: 200ms;
+}
+section .container ul li div label input:checked ~ span {
+  color: #F4B942;
+  transform: scale(1.5);
+  transition: 200ms;
 }
 section .moveBtn {
   border: none;
@@ -133,8 +163,12 @@ section .moveBtn {
   background-color: rgba(107, 155, 196, 0);
   font-weight: 600;
 }
+section .moveBtn i {
+  margin-left: 8px;
+}
 section .moveBtn:hover {
-  font-size: 16px;
+  transform: scale(1.1);
+  transition: 200ms;
 }
 
 #menu {
@@ -147,6 +181,11 @@ section .moveBtn:hover {
   padding: 10px;
   font-size: 25px;
 }
+#menu h6 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  margin-top: 10px;
+}
 
 #hamburgerMenu:hover {
   transition: 400ms;
@@ -157,29 +196,16 @@ a.hamburgerMenuItem:link {
   color: black;
   text-decoration: none;
 }
-
 a.hamburgerMenuItem:visited {
   color: black;
   text-decoration: none;
 }
-
 a.hamburgerMenuItem:hover {
   color: white;
   transition: 500ms;
   text-decoration: none;
 }
-
 a.hamburgerMenuItem:active {
   color: black;
   text-decoration: none;
-}
-
-h6 {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-#arrow {
-  margin-left: 6px;
 }/*# sourceMappingURL=style.css.map */

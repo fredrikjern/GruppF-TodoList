@@ -16,12 +16,7 @@ let inventoryID = "63ea107d843a53f2e4b457f4";
  * @returns
  */
 async function apiGet(listID) {
-  if (listID === buyID) {
-    listID = buyID;
-  } else if (listID === inventoryID) {
-  } else if (listID === inventoryID) {
-    listID = inventoryID;
-  } else {
+  if (listID !== buyID || listID !== inventoryID) {
     return console.error("ApiGet id error!");
   }
   const res = await fetch(
@@ -96,23 +91,31 @@ function printToList(items, listName) {
 function createItem(obj, list, listIDs) {
   // console.log(list);
   let liElem = document.createElement("li");
-  liElem.innerHTML = `<p>${obj.description}, ${obj.title}</p>`;
+  liElem.innerHTML = `<p>${obj.title}, ${obj.description}</p>`;
+  
+  let div = document.createElement("div");
 
+  let label = document.createElement("label");
+  let span = document.createElement("span");
+  span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
   let checkbox = document.createElement("INPUT");
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("name", `${list === "buy-list" ? "buy" : "inventory"}`);
   checkbox.setAttribute("value", `${obj._id}`);
-  if (obj.checked === "true") checkbox.setAttribute("checked", "true");
-  liElem.append(checkbox);
+  if (obj.checked==="true") checkbox.setAttribute("checked", "true");
+  label.append(checkbox)
+  label.append(span)
+  div.append(label)
 
   let deleteItemBtn = document.createElement("button");
   deleteItemBtn.classList.add("fa", "fa-trash");
   deleteItemBtn.setAttribute("aria-hidden", "true");
-  liElem.append(deleteItemBtn);
-
+  div.append(deleteItemBtn);
+  liElem.append(div);
+  
   document.getElementById(list).append(liElem); // It's here the element is added to the DOM and eventlisteners can be added.
 
-  checkbox.addEventListener("change", async function () {
+  label.addEventListener("change", async function () {
     const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
       method: "PUT",
       headers: {
