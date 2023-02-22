@@ -18,9 +18,6 @@ let inventoryID = "63ea107d843a53f2e4b457f4";
  * @returns
  */
 async function apiGet(listID) {
-  if (listID !== buyID || listID !== inventoryID) {
-    return console.error("ApiGet id error!");
-  }
   const res = await fetch(
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
   );
