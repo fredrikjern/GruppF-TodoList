@@ -9,8 +9,18 @@ let shopButton = document.querySelector("#shopButton");
 let homeButton = document.querySelector("#homeButton");
 let currentList = "";
 
-let buyID = "63ea106e843a53f2e4b457f3";
-let inventoryID = "63ea107d843a53f2e4b457f4";
+const buyID = "63ea106e843a53f2e4b457f3";
+const inventoryID = "63ea107d843a53f2e4b457f4";
+
+let alertMessage = document.querySelector(".alertMessage-container");
+let alertMessageYes = document.querySelector(".alertMessage_yes");
+let alertMessageNo = document.querySelector(".alertMessage_no");
+
+let alertMessageNumber2 = document.querySelector(".alertMessageNumber2-container");
+let alertMessageNumber2Yes = document.querySelector(".alertMessageNumber2_yes");
+let alertMessageNumber2No = document.querySelector(".alertMessageNumber2_no");
+
+//Get the list with API
 
 /**
  * Function that takes buyList or inventoryList and then calls the write function.
@@ -100,7 +110,11 @@ function createItem(obj, list, listID) {
 
   let label = document.createElement("label");
   let span = document.createElement("span");
-  span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
+  if(list === "buy-list"){
+    span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
+  }else{
+    span.innerHTML = `<i class="fa-solid fa-house"></i>`
+  }
   let checkbox = document.createElement("INPUT");
   let objInput = [obj.title, obj.description, obj._id];
   checkbox.setAttribute("type", "checkbox");
