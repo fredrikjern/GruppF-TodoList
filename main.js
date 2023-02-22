@@ -18,12 +18,7 @@ let inventoryID = "63ea107d843a53f2e4b457f4";
  * @returns
  */
 async function apiGet(listID) {
-  if (listID === buyID) {
-    listID = buyID;
-  } else if (listID === inventoryID) {
-  } else if (listID === inventoryID) {
-    listID = inventoryID;
-  } else {
+  if (listID !== buyID || listID !== inventoryID) {
     return console.error("ApiGet id error!");
   }
   const res = await fetch(
