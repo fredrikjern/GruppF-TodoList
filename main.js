@@ -66,17 +66,17 @@ async function apiGet(listID) {
   function createItem(obj, list, listID) {
     console.log(list);
     let liElem = document.createElement("li");
-    liElem.innerHTML = `<p>${obj.description}, ${obj.title}</p>`;
+    liElem.innerHTML = `<p>${obj.title}, ${obj.description}</p>`;
 
     let div = document.createElement("div");
 
-  let label = document.createElement("label");
-  let span = document.createElement("span");
-  if(list === "buy-list"){
+    let label = document.createElement("label");
+    let span = document.createElement("span");
+    if(list === "buy-list"){
     span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
-  }else{
+    }else{
     span.innerHTML = `<i class="fa-solid fa-house"></i>`
-  }
+    }
     
     let checkbox = document.createElement("INPUT");
     let objInput = [obj.title, obj.description, obj._id];
@@ -86,7 +86,7 @@ async function apiGet(listID) {
     checkbox.setAttribute("data-title", `${obj.title}`);
     checkbox.setAttribute("data-description", `${obj.description}`);
     if (obj.checked==="true") checkbox.setAttribute("checked", "true");
-    liElem.append(checkbox)
+    label.append(checkbox);
     label.append(span);
     div.append(label);
   
@@ -98,7 +98,7 @@ async function apiGet(listID) {
     
     document.getElementById(list).append(liElem); // It's here the element is added to the DOM and eventlisteners can be added.
   
-    checkbox.addEventListener("click", async function () {
+    label.addEventListener("click", async function (event) {
       event.preventDefault();
       const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
         method: "PUT",
@@ -121,7 +121,7 @@ async function apiGet(listID) {
       apiGet(listID);
     }); 
   }
-
+// collect allt checked checkboxes in one list, post copied item, then delete old item.
   async function deleteItem(listID, objectID) {
     return fetch(`${API_BASE}lists/${listID}/items/${objectID}`, {
       method: "DELETE",
@@ -220,7 +220,7 @@ shoppingField.addEventListener("submit",async function (e) {
     console.log(isInInventory);
     if (!isInInventory){
         addItemToList(buyID,inputMain,inputDesc);
-       
+        shoppingField.reset();
     }else{
         document.querySelector(".alertContent1").innerHTML = `<p>Du har redan ${inputMain} hemma. Vill du lägga till ${inputMain} i inköpslistan ändå?</p>`;
         alertMessage.style.display = "block";
@@ -289,6 +289,7 @@ alertMessageNumber2Yes.addEventListener("click", function(e){
 alertMessageNumber2No.addEventListener("click", function(e){
   e.preventDefault();
   alertMessageNumber2.style.display = "none";
+  shoppingField.reset();
 })
 
 shoppingMove.addEventListener("click", function (e) {
@@ -301,14 +302,3 @@ inventoryMove.addEventListener("click", function (e) {
 
 apiGet(buyID);
 apiGet(inventoryID);
-
-
-
-
-
-
-
-
-
-
-
