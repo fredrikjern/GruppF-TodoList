@@ -99,10 +99,16 @@ function createItem(obj, list, listIDs) {
   liElem.innerHTML = `<p>${obj.title}, ${obj.description}</p>`;
   
   let div = document.createElement("div");
-
   let label = document.createElement("label");
   let span = document.createElement("span"); 
-  span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
+
+  //Changes the icon in checkbox depending on witch list it is apending to.
+  if(list === "buy-list"){
+    span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
+  }else{
+    span.innerHTML = `<i class="fa-solid fa-house"></i>`;
+  }
+
   let checkbox = document.createElement("INPUT");
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("name", `${list === "buy-list" ? "buy" : "inventory"}`);
