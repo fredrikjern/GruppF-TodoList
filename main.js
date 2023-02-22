@@ -20,6 +20,9 @@ let alertMessageNumber2No = document.querySelector(".alertMessageNumber2_no");
 
 //Get the list with API
 async function apiGet(listID) {
+  if (listID !== buyID || listID !== inventoryID) {
+    return console.error("ApiGet id error!");
+  }
     const res = await fetch(
       `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
     );
