@@ -2,6 +2,8 @@ const API_BASE = "https://nackademin-item-tracker.herokuapp.com/"; //Den delen a
 const buyList = document.getElementById("buy-list");
 let shoppingField = document.querySelector("#buy-list-input");
 let homeField = document.querySelector("#home-list-input");
+let shoppingMove = document.querySelector("#shopping-move");
+let inventoryMove = document.querySelector("#inventory-move");
 
 let shopButton = document.querySelector("#shopButton");
 let homeButton = document.querySelector("#homeButton");
@@ -19,6 +21,11 @@ let alertMessageNumber2Yes = document.querySelector(".alertMessageNumber2_yes");
 let alertMessageNumber2No = document.querySelector(".alertMessageNumber2_no");
 
 //Get the list with API
+/**
+ * Function that takes buyList or inventoryList and then calls the write function.
+ * @param {*} listID
+ * @returns
+ */
 async function apiGet(listID) {
     const res = await fetch(
       `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
@@ -27,7 +34,11 @@ async function apiGet(listID) {
     printToList(data, listID);
   }
 
- 
+ /**
+ *
+ * @param {* An array with objects} items
+ * @param {* A String} listName
+ */
   //Get item from API list
   function printToList(items, listName) {
     console.log(items);
@@ -44,27 +55,51 @@ async function apiGet(listID) {
     });
   }
 
+
   //Create list items from the API list
-  function createItem(obj, list, listIDs) {
+  /**
+ * createItem
+ * @param {*} obj
+ * @param {*} list
+ * @param {*} listID
+ */
+  function createItem(obj, list, listID) {
     console.log(list);
     let liElem = document.createElement("li");
     liElem.innerHTML = `<p>${obj.description}, ${obj.title}</p>`;
+
+    let div = document.createElement("div");
+
+  let label = document.createElement("label");
+  let span = document.createElement("span");
+  if(list === "buy-list"){
+    span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
+  }else{
+    span.innerHTML = `<i class="fa-solid fa-house"></i>`
+  }
     
     let checkbox = document.createElement("INPUT");
+    let objInput = [obj.title, obj.description, obj._id];
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("name", `${list === "buy-list" ? "buy" : "inventory"}`);
     checkbox.setAttribute("value", `${obj._id}`);
+    checkbox.setAttribute("data-title", `${obj.title}`);
+    checkbox.setAttribute("data-description", `${obj.description}`);
     if (obj.checked==="true") checkbox.setAttribute("checked", "true");
     liElem.append(checkbox)
+    label.append(span);
+    div.append(label);
   
     let deleteItemBtn = document.createElement("button");
     deleteItemBtn.classList.add("fa", "fa-trash");
     deleteItemBtn.setAttribute("aria-hidden", "true");
-    liElem.append(deleteItemBtn);
+    div.append(deleteItemBtn);
+    liElem.append(div);
     
     document.getElementById(list).append(liElem); // It's here the element is added to the DOM and eventlisteners can be added.
   
-    checkbox.addEventListener("change", async function () {
+    checkbox.addEventListener("click", async function () {
+      event.preventDefault();
       const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
         method: "PUT",
         headers: {
@@ -74,19 +109,66 @@ async function apiGet(listID) {
           checked: `${obj.checked === "false" ? "true" : "false"}`,
         }),
       });
-      apiGet(listID)
+      const data = await res.json();
+      apiGet(data.list._id);
     });
 
-    let listID = listIDs;
+    //let listID = listIDs;
     deleteItemBtn.addEventListener("click", async function () {
       const res = await fetch(`${API_BASE}lists/${listID}/items/${obj._id}`, {
         method: "DELETE",
-      }); // deletar objekt med _id.
-      console.log(listID + "  klick på delete");
-  
+      }); // deletar objekt med _id
       apiGet(listID);
+    }); 
+  }
+
+  async function deleteItem(listID, objectID) {
+    return fetch(`${API_BASE}lists/${listID}/items/${objectID}`, {
+      method: "DELETE",
     });
   }
+
+  /**
+ * @param {*} listname
+ */
+async function transferItems(listname) {
+  let checkboxes = document.querySelectorAll(`[name='${listname}']`);
+  const allChecked = Array.from(checkboxes).filter(
+    (checkbox) => checkbox.checked
+  );
+  let howManyAreDone = 0;
+  allChecked.forEach(async (checkbox, i) => {
+    if (checkbox.checked) {
+      addItemToList(
+        listname === "buy" ? inventoryID : buyID,
+        checkbox.dataset.title,
+        checkbox.dataset.description
+      );
+
+      await deleteItem(
+        listname === "buy" ? buyID : inventoryID,
+        checkbox.value
+      );
+
+      howManyAreDone++;
+
+      if (howManyAreDone === allChecked.length) {
+        apiGet(buyID);
+      }
+    }
+  });
+};
+
+/**
+ * @param {*} inputMain
+ * @param {*} inputDesc
+ */
+const errorMessage = (inputMain, inputDesc) => {
+  if (!inputMain.trim().length || !inputDesc.trim().length) {
+    alert("Du måste skriva något i båda fälten.");
+    throw new Error("Input måste innehålla minst en karaktär.");
+  }
+};
 
   //Add new item to the list(into API)
   async function addItemToList(listansID, inputVara, inputAntal) {
@@ -133,7 +215,7 @@ shoppingField.addEventListener("submit",async function (e) {
     e.preventDefault();
     inputMain = document.querySelector("#shoppingField").value;
     inputDesc = document.querySelector("#shoppingDesc").value;
-    
+    errorMessage(inputMain, inputDesc);
     let isInInventory = await compareInputToInventory(inventoryID,inputMain)
     console.log(isInInventory);
     if (!isInInventory){
@@ -150,6 +232,7 @@ shoppingField.addEventListener("submit",async function (e) {
     e.preventDefault();
     inputMain = document.querySelector("#homeField").value;
     inputDesc = document.querySelector("#homeDesc").value;
+    errorMessage(inputMain, inputDesc);
     addItemToList(inventoryID,inputMain,inputDesc);
     homeField.reset();  
   });
@@ -208,10 +291,16 @@ alertMessageNumber2No.addEventListener("click", function(e){
   alertMessageNumber2.style.display = "none";
 })
 
+shoppingMove.addEventListener("click", function (e) {
+  transferItems("buy");
+});
+
+inventoryMove.addEventListener("click", function (e) {
+  transferItems("inventory");
+});
 
 apiGet(buyID);
 apiGet(inventoryID);
-
 
 
 
