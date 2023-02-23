@@ -29,8 +29,6 @@ async function apiGet(listID) {
   );
   const data = await res.json();
 
-  data.itemList.forEach(item => {console.log(item.title + ": " + item.checked)})
-
   printToList(data, listID);
 }
 /**
