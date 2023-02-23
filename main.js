@@ -28,6 +28,9 @@ async function apiGet(listID) {
     `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
   );
   const data = await res.json();
+
+  data.itemList.forEach(item => {console.log(item.title + ": " + item.checked)})
+
   printToList(data, listID);
 }
 /**
@@ -45,36 +48,14 @@ async function apiPost(listID, title, description) {
       body: JSON.stringify({
         title: title,
         description: description,
-        checked: false,
+        checked: "false",
       }),
     }
   );
   const data = await res.json();
   printToList(data.list, listID);
 }
-/** add Item
- * @param {*} listansID 
- * @param {*} inputVara 
- * @param {*} inputAntal 
- */
-async function addItemToList(listansID, inputVara, inputAntal) {
-  const res = await fetch(
-    `https://nackademin-item-tracker.herokuapp.com/lists/${listansID}/items`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: inputVara,
-        description: inputAntal,
-        checked: false,
-      }),
-    }
-  );
-  const data = await res.json();
-  printToList(data.list, listansID);
-}
+
 /**
  *
  * @param {* An array with objects} items
@@ -106,13 +87,11 @@ function createItem(obj, list, listID) {
 
   let label = document.createElement("label");
   let span = document.createElement("span");
-  if(list === "buy-list"){
-    span.innerHTML = `<i class="fa-solid fa-carrot"></i>`;
-  }else{
-    span.innerHTML = `<i class="fa-solid fa-house"></i>`
-  }
+  
+  span.innerHTML = `<i class="${list === "buy-list" ? "fa-solid fa-carrot" : "fa-solid fa-house"}"></i>`
+
   let checkbox = document.createElement("INPUT");
-  let objInput = [obj.title, obj.description, obj._id];
+
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("name", `${list === "buy-list" ? "buy" : "inventory"}`);
   checkbox.setAttribute("value", `${obj._id}`);
@@ -139,7 +118,7 @@ function createItem(obj, list, listID) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        checked: `${obj.checked === "false" ? "true" : "false"}`,
+        checked: `${obj.checked === "true" ? "false" : "true"}`,
       }),
     });
     const data = await res.json();
@@ -170,7 +149,7 @@ async function transferItems(listname) {
   let howManyAreDone = 0;
   allChecked.forEach(async (checkbox, i) => {
     if (checkbox.checked) {
-      addItemToList(
+      apiPost(
         listname === "buy" ? inventoryID : buyID,
         checkbox.dataset.title,
         checkbox.dataset.description
@@ -185,6 +164,7 @@ async function transferItems(listname) {
 
       if (howManyAreDone === allChecked.length) {
         apiGet(buyID);
+        apiGet(inventoryID);
       }
     }
   });
@@ -244,7 +224,7 @@ shoppingField.addEventListener("submit", async function (e) {
   errorMessage(inputMain, inputDesc);
   let isInInventory = await compareInputToInventory(inventoryID,inputMain)
   if (!isInInventory){
-    addItemToList(buyID,inputMain,inputDesc);
+    apiPost(buyID,inputMain,inputDesc);
     shoppingField.reset();
   }else{
     document.querySelector(".alertContent1").innerHTML = `<p>Du har redan ${inputMain} hemma. Vill du lägga till ${inputMain} i inköpslistan ändå?</p>`;
@@ -264,7 +244,7 @@ homeField.addEventListener("submit", function (e) {
 alertMessageYes.addEventListener("click", function(e) {
   let inputMain = document.querySelector("#shoppingField").value;
   let inputDesc = document.querySelector("#shoppingDesc").value;
-  addItemToList(buyID, inputMain, inputDesc)
+  apiPost(buyID, inputMain, inputDesc)
   alertMessage.style.display = "none";
   document.querySelector(".alertContent2").innerHTML = `<p>Vill du ta bort ${inputMain} ur hemma?`;
   alertMessageNumber2.style.display = "block";
