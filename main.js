@@ -5,10 +5,6 @@ let homeField = document.querySelector("#home-list-input");
 let shoppingMove = document.querySelector("#shopping-move");
 let inventoryMove = document.querySelector("#inventory-move");
 
-let shopButton = document.querySelector("#shopButton");
-let homeButton = document.querySelector("#homeButton");
-let currentList = "";
-
 const buyID = "63ea106e843a53f2e4b457f3";
 const inventoryID = "63ea107d843a53f2e4b457f4";
 
@@ -203,19 +199,59 @@ const errorMessage = (inputMain, inputDesc) => {
     throw new Error("Input måste innehålla minst en karaktär.");
   }
 };
+
+// Check if the item is in the home inventory.
+async function compareInputToInventory (listID,item){ 
+  const checkList = await fetch(
+    `https://nackademin-item-tracker.herokuapp.com/lists/${listID}`
+  );
+  const listItems = await checkList.json();
+    
+  for (let i = 0; i < listItems.itemList.length; i++) {
+    if (listItems.itemList[i].title.toLowerCase() === item.toLowerCase()) {
+      return true;
+    }
+  } 
+  return false; 
+}
+
+///delete function///
+async function deleteFromInventory (object){
+  const res = await fetch(
+    `https://nackademin-item-tracker.herokuapp.com/lists/${inventoryID}`
+  );
+  const inventoryListItems = await res.json();
+    
+  inventoryListItems.itemList.forEach( async(item) =>  {
+    if (item.title.toLowerCase() === object.toLowerCase()) {
+      await fetch(`${API_BASE}lists/${inventoryID}/items/${item._id}`, {
+        method: "DELETE",
+      });
+      apiGet(inventoryID)
+    }
+  })
+}
+
+
 /** Eventlistener
  * Eventlisteners for forms, event submit
  */
-shoppingField.addEventListener("submit", function (e) {
+shoppingField.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   let inputMain = document.querySelector("#shoppingField").value;
   let inputDesc = document.querySelector("#shoppingDesc").value;
   errorMessage(inputMain, inputDesc);
-  shoppingField.reset();
-
-  apiPost(buyID, inputMain, inputDesc);
+  let isInInventory = await compareInputToInventory(inventoryID,inputMain)
+  if (!isInInventory){
+    addItemToList(buyID,inputMain,inputDesc);
+    shoppingField.reset();
+  }else{
+    document.querySelector(".alertContent1").innerHTML = `<p>Du har redan ${inputMain} hemma. Vill du lägga till ${inputMain} i inköpslistan ändå?</p>`;
+    alertMessage.style.display = "block";
+  }
 });
+
 homeField.addEventListener("submit", function (e) {
   e.preventDefault();
   let inputMain = document.querySelector("#homeField").value;
@@ -224,6 +260,32 @@ homeField.addEventListener("submit", function (e) {
   homeField.reset();
   apiPost(inventoryID, inputMain, inputDesc);
 });
+
+alertMessageYes.addEventListener("click", function(e) {
+  let inputMain = document.querySelector("#shoppingField").value;
+  let inputDesc = document.querySelector("#shoppingDesc").value;
+  addItemToList(buyID, inputMain, inputDesc)
+  alertMessage.style.display = "none";
+  document.querySelector(".alertContent2").innerHTML = `<p>Vill du ta bort ${inputMain} ur hemma?`;
+  alertMessageNumber2.style.display = "block";
+})
+
+alertMessageNo.addEventListener("click", function(e) {
+  alertMessage.style.display = "none";
+  shoppingField.reset();
+})
+
+alertMessageNumber2Yes.addEventListener("click",async function(e){
+  let inputMain = document.querySelector("#shoppingField").value;
+  deleteFromInventory(inputMain);
+  shoppingField.reset();
+  alertMessageNumber2.style.display = "none";
+})
+
+alertMessageNumber2No.addEventListener("click", function(e){
+  shoppingField.reset();
+  alertMessageNumber2.style.display = "none";
+})
 
 shoppingMove.addEventListener("click", function (e) {
   transferItems("buy");
