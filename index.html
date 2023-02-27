@@ -15,14 +15,16 @@
   </head>
 
   <body>
+    <div id="invisibleAlertBox">
     <header>
         <nav>
             <i class="fa-solid fa-gear"></i>
-            <img src="img/carrot_white.svg" alt="CarrotLogo" width="70" height="70">
+            <img src="./img/one_carrot_white.svg" alt="CarrotLogo" width="70" height="70">
             <i class="fa-solid fa-bars" id="hamburgerMenu"></i>
         </nav>
     </header>
 
+    <!--
     <div id="menu">
         <a href="#" class="hamburgerMenuItem"><i class="fa-solid fa-house">
             <h6>Hem</h6>
@@ -44,8 +46,13 @@
             </i>
         </a>
     </div>
+    -->
 
     <div id="pageWrapper">
+        
+
+        
+
       <section id="shoppingContainer">
         <h2>Inköpslista</h2>
         <form id="buy-list-input">
@@ -70,7 +77,7 @@
         <div id="shoppingList" class="container">
           <ul id="buy-list"></ul>
         </div>
-        <button class="moveBtn" id="shoppingMove">Flytta över<i class="fa-solid fa-arrow-down" id="arrow"></i>
+        <button class="moveBtn" id="shopping-move">Flytta över<i class="fa-solid fa-arrow-down" id="arrow"></i>
         </button>
       </section>
 
@@ -88,8 +95,23 @@
                 <div id="homeList" class="container">
                     <ul id="inventory-list"></ul>
                 </div>
-                <button class="moveBtn" id="homeMove">Flytta över<i class="fa-solid fa-arrow-up" id="arrow"></i></button></button>
+                <button class="moveBtn" id="inventory-move">Flytta över<i class="fa-solid fa-arrow-up" id="arrow"></i></button></button>
         </section>
     </div>
+</div>
+<div class="alertMessage-container">
+    <div class="alertContent1"></div>
+    <button class="alertMessage_yes">Ja</button>
+    <button class="alertMessage_no">Nej</button>
+</div>
+
+<div class="alertMessageNumber2-container">
+    <div class="alertContent2"></div>
+    <button class="alertMessageNumber2_yes">Ja</button>
+    <button class="alertMessageNumber2_no">Nej</button>
+</div>
+
+    
+      
   </body>
 </html>
