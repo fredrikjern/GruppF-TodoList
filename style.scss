@@ -40,11 +40,12 @@ header {
             height: 48px;
         }
         i {
+            visibility: hidden;
             width: 30px;
-           &:hover{
+           /*&:hover{
             font-size: 30px;
             transition: 200ms;
-           } 
+           } */
         }
     }
 }
@@ -211,7 +212,7 @@ section{
       }
   }
   
-  #hamburgerMenu:hover{
+  /*#hamburgerMenu:hover{
     transition: 400ms;
     color:white;
   }
@@ -238,7 +239,7 @@ section{
         color: black;
         text-decoration: none;
     }
-  }
+  }*/
 
   
 .alertMessage-container{
