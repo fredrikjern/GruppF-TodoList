@@ -228,6 +228,8 @@ shoppingField.addEventListener("submit", async function (e) {
   }else{
     document.querySelector(".alertContent1").innerHTML = `<p>Du har redan ${inputMain} hemma. Vill du lägga till ${inputMain} i inköpslistan ändå?</p>`;
     alertMessage.style.display = "block";
+    document.getElementById("buy-list-input").style.pointerEvents="none";
+    document.getElementById("home-list-input").style.pointerEvents="none";
   }
 });
 
@@ -247,11 +249,17 @@ alertMessageYes.addEventListener("click", function(e) {
   alertMessage.style.display = "none";
   document.querySelector(".alertContent2").innerHTML = `<p>Vill du ta bort ${inputMain} ur hemma?`;
   alertMessageNumber2.style.display = "block";
+  document.getElementById("buy-list-input").style.pointerEvents="none";
+  document.getElementById("home-list-input").style.pointerEvents="none";
+
 })
 
 alertMessageNo.addEventListener("click", function(e) {
   alertMessage.style.display = "none";
   shoppingField.reset();
+  document.getElementById("buy-list-input").style.pointerEvents="auto";
+  document.getElementById("home-list-input").style.pointerEvents="auto";
+
 })
 
 alertMessageNumber2Yes.addEventListener("click",async function(e){
@@ -259,11 +267,15 @@ alertMessageNumber2Yes.addEventListener("click",async function(e){
   deleteFromInventory(inputMain);
   shoppingField.reset();
   alertMessageNumber2.style.display = "none";
+  document.getElementById("buy-list-input").style.pointerEvents="auto";
+  document.getElementById("home-list-input").style.pointerEvents="auto";
 })
 
 alertMessageNumber2No.addEventListener("click", function(e){
   shoppingField.reset();
   alertMessageNumber2.style.display = "none";
+  document.getElementById("buy-list-input").style.pointerEvents="auto";
+  document.getElementById("home-list-input").style.pointerEvents="auto";
 })
 
 shoppingMove.addEventListener("click", function (e) {
