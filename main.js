@@ -100,6 +100,7 @@ function createItem(obj, list, listID) {
   label.append(span);
   div.append(label);
 
+
   let deleteItemBtn = document.createElement("button");
   deleteItemBtn.classList.add("fa", "fa-trash");
   deleteItemBtn.setAttribute("aria-hidden", "true");
@@ -227,6 +228,7 @@ shoppingField.addEventListener("submit", async function (e) {
   }else{
     document.querySelector(".alertContent1").innerHTML = `<p>Du har redan ${inputMain} hemma. Vill du lägga till ${inputMain} i inköpslistan ändå?</p>`;
     alertMessage.style.display = "block";
+    document.getElementById("invisibleAlertBox").style.pointerEvents="none";
   }
 });
 
@@ -251,6 +253,7 @@ alertMessageYes.addEventListener("click", function(e) {
 alertMessageNo.addEventListener("click", function(e) {
   alertMessage.style.display = "none";
   shoppingField.reset();
+  window.location.reload();
 })
 
 alertMessageNumber2Yes.addEventListener("click",async function(e){
@@ -258,11 +261,13 @@ alertMessageNumber2Yes.addEventListener("click",async function(e){
   deleteFromInventory(inputMain);
   shoppingField.reset();
   alertMessageNumber2.style.display = "none";
+  window.location.reload();
 })
 
 alertMessageNumber2No.addEventListener("click", function(e){
   shoppingField.reset();
   alertMessageNumber2.style.display = "none";
+  window.location.reload();
 })
 
 shoppingMove.addEventListener("click", function (e) {

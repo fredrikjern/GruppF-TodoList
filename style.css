@@ -185,7 +185,6 @@ section .moveBtn:hover {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-  width: 100%;
   height: 50px;
   background-color: palegoldenrod;
   padding: 10px;
@@ -224,9 +223,11 @@ a.hamburgerMenuItem:active {
   background-color: white;
   position: fixed; /* Stay in place */
   padding-top: 100px; /* Location of the box */
-  top: 35%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 50%;
-  margin: auto;
+  margin: 0 auto;
   padding: 30px;
   border-radius: 5px;
   box-shadow: 0 0 15px 5px #ccc;
@@ -238,7 +239,9 @@ a.hamburgerMenuItem:active {
   background-color: white;
   position: fixed;
   padding-top: 100px; /* Location of the box */
-  top: 35%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 50%;
   margin: auto;
   padding: 30px;
