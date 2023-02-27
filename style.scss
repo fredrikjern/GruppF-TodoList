@@ -253,9 +253,7 @@ section{
     box-shadow:0 0 15px 5px #ccc;
     display: none;
     z-index: 2;
-    button{
-        @include button;
-    }  
+    
 }
 
 .alertMessageNumber2-container{
@@ -270,9 +268,6 @@ section{
   box-shadow:0 0 15px 5px #ccc;
   display: none;
   z-index: 2;
-  button{
-      @include button;
-  }
 }
 
   /*# sourceMappingURL=style.css.map */
