@@ -245,6 +245,7 @@ section{
     border-radius:5px;
     box-shadow:0 0 15px 5px #ccc;
     display: none;
+    z-index: 2;
     
 }
 
@@ -259,7 +260,7 @@ section{
   border-radius:5px;
   box-shadow:0 0 15px 5px #ccc;
   display: none;
-  
+  z-index: 2;
 }
 
   /*# sourceMappingURL=style.css.map */
